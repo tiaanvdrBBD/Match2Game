@@ -1,4 +1,4 @@
-# MRequirements:
+# Requirements:
 - Base match-2 game
 - Start session screen
 	- User enters their name
