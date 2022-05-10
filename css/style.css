@@ -53,3 +53,48 @@ body {
 .front-face {
   transform: rotateY(180deg);
 }
+
+/* landing page: added */
+
+.name_input {
+  font-size: 20px;
+  font-family: 'Courier New', Courier, monospace;
+}
+.form {
+  background: rgb(255, 55, 155);
+  opacity: 0.8;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: auto;
+  padding: 20px;
+  border: solid gray 2px;
+  border-radius: 2em;
+}
+
+.form:hover {
+  opacity: 1;
+}
+
+.label {
+  padding: 30px;
+  margin: auto;
+  font-size: 25px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.btn_play_container {
+  text-decoration: none;
+  margin: auto;
+}
+
+.btn_play {
+  text-decoration: none;
+  border: 2px solid grey;
+  border-radius: 2em;
+  padding: 10px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+

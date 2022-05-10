@@ -1,4 +1,4 @@
-const cards = document.querySelectorAll ('.memory-card');
+const cards = document.querySelectorAll('.memory-card');
 
 let hasFlippedCard = false;
 let lockBoard = false;
@@ -12,10 +12,21 @@ var successful = 0;
 var unsuccessful = 0;
 
 countDownDate.setMinutes(countDownDate.getMinutes() + 10);
-countDownDate = new Date(countDownDate); 
+countDownDate = new Date(countDownDate);
 console.log(countDownDate);
 
-var x = setInterval(function() {
+// landing page
+function logSession() {
+  
+  // add username to session storage
+  sessionStorage.setItem("username", JSON.stringify(document.getElementById("username").value));
+
+  // TODO: remove (show username for dev)
+  alert(sessionStorage.getItem('username'));
+}
+
+
+var x = setInterval(function () {
 
   // Get today's date and time
   var now = new Date().getTime();
@@ -31,7 +42,7 @@ var x = setInterval(function() {
   document.getElementById("demo").innerHTML = minutes + "m " + seconds + "s ";
   var newMin = maxTime - minutes;
   var newSec = 60 - seconds;
-  timeTaken = newMin*60+newSec;
+  timeTaken = newMin * 60 + newSec;
   // If the count down is finished, write some text
   if (distance < 0) {
     clearInterval(x);
@@ -45,38 +56,38 @@ var x = setInterval(function() {
 
 
 function heuristic() {
-  var fraction = successful / (successful+unsuccessful);
-  var result = (maxTime*60)-timeTaken+(maxTime*60)*fraction;
+  var fraction = successful / (successful + unsuccessful);
+  var result = (maxTime * 60) - timeTaken + (maxTime * 60) * fraction;
   return result > 0 ? result : 0;
 }
 
 function flipCard() {
-  
-  
+
+
   if (lockBoard) return;
   if (this === firstCard) return;
 
   this.classList.add('flip');
 
-  if(!hasFlippedCard) {
+  if (!hasFlippedCard) {
     //first click
     hasFlippedCard = true;
     firstCard = this;
 
     return;
   }
-    //second click
-    hasFlippedCard = false;
-    secondCard = this;
+  //second click
+  hasFlippedCard = false;
+  secondCard = this;
 
-    checkForMatch();
+  checkForMatch();
 };
 
 
 function checkForMatch() {
   let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
 
-    //isMatch ? disableCards() : unflipCards();
+  //isMatch ? disableCards() : unflipCards();
 
   if (isMatch) {
     successful++;
@@ -100,11 +111,11 @@ function unflipCards() {
   lockBoard = true;
 
   setTimeout(() => {
-  firstCard.classList.remove('flip');
-  secondCard.classList.remove('flip');
+    firstCard.classList.remove('flip');
+    secondCard.classList.remove('flip');
 
-  resetBoard();
-  },1500);
+    resetBoard();
+  }, 1500);
 };
 
 function resetBoard() {

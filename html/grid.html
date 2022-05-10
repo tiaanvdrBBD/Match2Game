@@ -1,27 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Memory Tiles</title>
-    <link rel="stylesheet" href="../css/grid.css">
-    <script src="../js/grid.js"></script>
-  </head>
-  <body>
-      
-    <section id="buttonPanel">
-        <button onclick="populateGrid(4, 3)">4x3</button>
-        <button onclick="populateGrid(4 ,4)">4x4</button>
-        <button onclick="populateGrid(5, 4)">5x4</button>
-        <button onclick="freePlayShow()">Free Play</button>
-    </section>
-    <section id="freePlayInputSection">
-        <label for="freePlayGridInput">Enter Grid Size: </label>
-        <input type="number" value="3" min="3" max="10" id="freePlayGridInput1" name="freePlayGridInput1">
-        <input type="number" value="3" min="3" max="10" id="freePlayGridInput2" name="freePlayGridInput2">
-        <button onclick="freePlayGenerate()">Generate Grid</button>
-    </section>
 
-    <section class="memory-game"></section>
+<head>
+  <meta charset="utf-8">
+  <title>Memory Tiles</title>
+  <link rel="stylesheet" href="../css/grid.css">
+  <script src="../js/grid.js"></script>
+</head>
 
-  </body>
+<body>
+
+  <nav id="top-nav">
+    <a href="/index.html" class="btn_play_container"><button 
+        class="btn_play">Home</button></a>
+  </nav>
+
+  <section id="buttonPanel">
+    <button onclick="populateGrid(4, 3)">4x3</button>
+    <button onclick="populateGrid(4 ,4)">4x4</button>
+    <button onclick="populateGrid(5, 4)">5x4</button>
+    <button onclick="freePlayShow()">Free Play</button>
+  </section>
+  <section id="freePlayInputSection">
+    <label for="freePlayGridInput">Enter Grid Size: </label>
+    <input type="number" value="3" min="3" max="10" id="freePlayGridInput1" name="freePlayGridInput1">
+    <input type="number" value="3" min="3" max="10" id="freePlayGridInput2" name="freePlayGridInput2">
+    <button onclick="freePlayGenerate()">Generate Grid</button>
+  </section>
+
+  <section class="memory-game"></section>
+
+</body>
+
 </html>

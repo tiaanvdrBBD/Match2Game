@@ -10,25 +10,25 @@ function flipCard() {
 
   this.classList.add('flip');
 
-  if(!hasFlippedCard) {
+  if (!hasFlippedCard) {
     //first click
     hasFlippedCard = true;
     firstCard = this;
 
     return;
   }
-    //second click
-    hasFlippedCard = false;
-    secondCard = this;
+  //second click
+  hasFlippedCard = false;
+  secondCard = this;
 
-    checkForMatch();
+  checkForMatch();
 };
 
 
 function checkForMatch() {
   let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
 
-    isMatch ? disableCards() : unflipCards();
+  isMatch ? disableCards() : unflipCards();
 };
 
 function disableCards() {
@@ -42,11 +42,11 @@ function unflipCards() {
   lockBoard = true;
 
   setTimeout(() => {
-  firstCard.classList.remove('flip');
-  secondCard.classList.remove('flip');
+    firstCard.classList.remove('flip');
+    secondCard.classList.remove('flip');
 
-  resetBoard();
-  },1500);
+    resetBoard();
+  }, 1500);
 };
 
 function resetBoard() {
@@ -62,59 +62,61 @@ function resetBoard() {
 })();
 
 
-const cardImages = ['angular.svg', 'aurelia.svg', 'backbone.svg', 'ember.svg', 'js-badge.svg', 'react.svg', 'vue.svg', 'js-log.png'] ;
+const cardImages = ['angular.svg', 'aurelia.svg', 'backbone.svg', 'ember.svg', 'js-badge.svg', 'react.svg', 'vue.svg', 'js-log.png'];
 
-function randomCardImages(gridSizeX, gridSizeY){
-        let randomSubset = cardImages.map(img => [img, Math.random()]).sort((a,b) => {return a[1] < b[1] ? -1 : 1;}).slice(0,gridSizeX*gridSizeY/2).map(a => a[0]);
-        return [...randomSubset , ...randomSubset].sort(() => Math.random() - 0.5)  ; 
+function randomCardImages(gridSizeX, gridSizeY) {
+  let randomSubset = cardImages.map(img => [img, Math.random()]).sort((a, b) => {
+    return a[1] < b[1] ? -1 : 1;
+  }).slice(0, gridSizeX * gridSizeY / 2).map(a => a[0]);
+  return [...randomSubset, ...randomSubset].sort(() => Math.random() - 0.5);
 }
 
-function freePlayShow(){
-    document.getElementById('freePlayInputSection').style.display = 'flex' ; 
+function freePlayShow() {
+  document.getElementById('freePlayInputSection').style.display = 'flex';
 }
 
-function freePlayGenerate(){
-    document.getElementById('freePlayInputSection').style.display = 'none' ; 
-    populateGrid(document.getElementById('freePlayGridInput1').value , document.getElementById('freePlayGridInput2').value);
+function freePlayGenerate() {
+  document.getElementById('freePlayInputSection').style.display = 'none';
+  populateGrid(document.getElementById('freePlayGridInput1').value, document.getElementById('freePlayGridInput2').value);
 }
 
 
 function populateGrid(gridSizeX, gridSizeY) {
-    const grid = document.getElementsByClassName("memory-game")[0];
-    grid.replaceChildren();
-    let imageCount = 0 ;
-    let randomSubsetWithDuplicates = randomCardImages(gridSizeX, gridSizeY); 
+  const grid = document.getElementsByClassName("memory-game")[0];
+  grid.replaceChildren();
+  let imageCount = 0;
+  let randomSubsetWithDuplicates = randomCardImages(gridSizeX, gridSizeY);
 
-    for(var i = 0 ; i < gridSizeX*gridSizeY ; i++){  
-            let imageSource = randomSubsetWithDuplicates[imageCount++] ;  
+  for (var i = 0; i < gridSizeX * gridSizeY; i++) {
+    let imageSource = randomSubsetWithDuplicates[imageCount++];
 
-            let card = document.createElement('article');
-            card.setAttribute("class", "memory-card");
-            card.setAttribute('data-framework', imageSource);
-            card.style.width = `${100/gridSizeX - 2}vw` ; 
-            card.style.height = `${gridSizeY*2}vw` ; 
-
-            
-
-            let cardImage1 = document.createElement('img');
-            cardImage1.setAttribute("class", "front-face") ; 
-            cardImage1.setAttribute("src", '../img/' + imageSource) ;
-            cardImage1.setAttribute("alt", imageSource) ;
+    let card = document.createElement('article');
+    card.setAttribute("class", "memory-card");
+    card.setAttribute('data-framework', imageSource);
+    card.style.width = `${100/gridSizeX - 2}vw`;
+    card.style.height = `${gridSizeY*2}vw`;
 
 
-            let cardImage2 = document.createElement('img');
-            cardImage2.setAttribute("class", "back-face") ; 
-            cardImage2.setAttribute("src", "../img/star.svg") ;
-            cardImage2.setAttribute("alt", "");
 
-            card.appendChild(cardImage1);
-            card.appendChild(cardImage2);
+    let cardImage1 = document.createElement('img');
+    cardImage1.setAttribute("class", "front-face");
+    cardImage1.setAttribute("src", '../img/' + imageSource);
+    cardImage1.setAttribute("alt", imageSource);
 
-            card.addEventListener('click', flipCard);
 
-            grid.appendChild(card);
-    }
+    let cardImage2 = document.createElement('img');
+    cardImage2.setAttribute("class", "back-face");
+    cardImage2.setAttribute("src", "../img/star.svg");
+    cardImage2.setAttribute("alt", "");
 
-    const columnSpread = 'auto ' ;
-    grid.style.gridTemplate = `${100/gridSizeY}% / ${columnSpread.repeat(gridSizeX)}`;
+    card.appendChild(cardImage1);
+    card.appendChild(cardImage2);
+
+    card.addEventListener('click', flipCard);
+
+    grid.appendChild(card);
+  }
+
+  const columnSpread = 'auto ';
+  grid.style.gridTemplate = `${100/gridSizeY}% / ${columnSpread.repeat(gridSizeX)}`;
 }
