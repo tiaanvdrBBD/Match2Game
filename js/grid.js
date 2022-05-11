@@ -4,6 +4,52 @@ let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
 
+var maxTime = 5;
+var timeTaken = 0;
+var countDownDate = new Date();
+let gameDone = 0;
+var successful = 0;
+var unsuccessful = 0;
+var xAxis = 0;
+var yAxis = 0;
+countDownDate.setMinutes(countDownDate.getMinutes() + maxTime);
+countDownDate = new Date(countDownDate);
+
+function heuristic() {
+  var fraction = successful / (successful + unsuccessful);
+  var result = (maxTime * 60) - timeTaken + (maxTime * 60) * fraction;
+  return result > 0 ? result : 0;
+}
+
+// Ticks every one second
+var x = setInterval(function () {
+
+  var now = new Date().getTime();
+  var timeLeft = countDownDate - now;
+  var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo").innerHTML = minutes + "m " + seconds + "s ";
+  var minutesLeft = maxTime - minutes;
+  var secondsLeft = 60 - seconds;
+  timeTaken = minutesLeft * 60 + secondsLeft;
+
+  if (timeLeft < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+    console.log("Your time has expired!");
+    console.log("Number of moves: " + (successful+unsuccessful).toString());
+    gameDone = 1;
+  } else if (gameDone == 1) {
+    clearInterval(x);
+    console.log(heuristic());
+    console.log("You won the game!");
+    console.log("Your score is: " + heuristic());
+    console.log("Number of moves: " + (successful+unsuccessful).toString());
+  }
+}, 1000);
+
 function flipCard() {
   if (lockBoard) return;
   if (this === firstCard) return;
@@ -14,7 +60,6 @@ function flipCard() {
     //first click
     hasFlippedCard = true;
     firstCard = this;
-
     return;
   }
   //second click
@@ -28,13 +73,25 @@ function flipCard() {
 function checkForMatch() {
   let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
 
-  isMatch ? disableCards() : unflipCards();
+  if (isMatch) {
+    successful++;
+    disableCards();
+  } else {
+    unsuccessful++;
+    unflipCards();
+  }
+  var perfectGame = xAxis * yAxis;
+  console.log("Perfect game:" + perfectGame);
+  // If you've made each successfull move, you must've finished
+  if(successful == perfectGame/2){
+    gameDone = 1;
+  }
+  console.log(heuristic());
 };
 
 function disableCards() {
   firstCard.removeEventListener('click', flipCard);
   secondCard.removeEventListener('click', flipCard);
-
   resetBoard();
 };
 
@@ -44,7 +101,6 @@ function unflipCards() {
   setTimeout(() => {
     firstCard.classList.remove('flip');
     secondCard.classList.remove('flip');
-
     resetBoard();
   }, 1500);
 };
@@ -82,6 +138,8 @@ function freePlayGenerate() {
 
 
 function populateGrid(gridSizeX, gridSizeY) {
+  xAxis = gridSizeX;
+  yAxis = gridSizeY;
   const grid = document.getElementsByClassName("memory-game")[0];
   grid.replaceChildren();
   let imageCount = 0;
@@ -96,13 +154,10 @@ function populateGrid(gridSizeX, gridSizeY) {
     card.style.width = `${100/gridSizeX - 2}vw`;
     card.style.height = `${gridSizeY*2}vw`;
 
-
-
     let cardImage1 = document.createElement('img');
     cardImage1.setAttribute("class", "front-face");
     cardImage1.setAttribute("src", '../img/' + imageSource);
     cardImage1.setAttribute("alt", imageSource);
-
 
     let cardImage2 = document.createElement('img');
     cardImage2.setAttribute("class", "back-face");
