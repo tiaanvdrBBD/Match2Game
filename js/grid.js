@@ -1,32 +1,3 @@
-// Ticks every one second
-/*setInterval(function () {
-
-  var now = new Date().getTime();
-  var timeLeft = countDownDate - now;
-  var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-  // Display the result in the element with id="timer"
-  document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
-  var minutesLeft = maxTime - minutes;
-  var secondsLeft = 60 - seconds;
-  timeTaken = minutesLeft * 60 + secondsLeft;
-
-  if (timeLeft < 0) {
-    clearInterval();
-    document.getElementById("timer").innerHTML = "EXPIRED";
-    console.log("Your time has expired!");
-    console.log("Number of moves: " + (successful+unsuccessful).toString());
-    gameDone = 1;
-  } else if (gameDone == 1) {
-    clearInterval();
-    console.log(heuristic());
-    console.log("You won the game!");
-    console.log("Your score is: " + heuristic());
-    console.log("Number of moves: " + (successful+unsuccessful).toString());
-  }
-}, 1000);  */
-
 const cards = document.querySelectorAll('.memory-card');
 
 let hasFlippedCard = false;
@@ -45,6 +16,10 @@ var yAxis = 0;
 // added
 let timerID = -1;
 
+function playAgain() {
+  alert('helle');
+}
+
 function heuristic() {
   var fraction = successful / (successful + unsuccessful);
   var result = Math.round((maxTime * 60) - timeTaken + (maxTime * 60) * fraction);
@@ -59,7 +34,7 @@ function tick() {
   var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
   // Display timer (id="timer")
-  document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
+  document.getElementById("timerLabel").innerHTML = minutes + "m " + seconds + "s ";
 
   var minutesLeft = maxTime - minutes;
   var secondsLeft = 60 - seconds;
@@ -69,7 +44,7 @@ function tick() {
     clearInterval(timerID);
     gameDone = 1;
     //display timer
-    document.getElementById("timer").innerHTML = "EXPIRED, number of moves: " + (successful + unsuccessful).toString();
+    document.getElementById("timerLabel").innerHTML = "EXPIRED, number of moves: " + (successful + unsuccessful).toString();
   }
 }
 // function called when card clicked (shows picture)
@@ -105,9 +80,8 @@ function flipCard() {
     //stop running the interval
     clearInterval(timerID);
     // display score
-    document.getElementById("timer").innerHTML = `Complete! Score: ${heuristic()}
+    document.getElementById("timerLabel").innerHTML = `Complete! Score: ${heuristic()}
     Moves: ${successful + unsuccessful}`;
-
     // reset everything
     hasFlippedCard = false;
     lockBoard = false;
@@ -140,7 +114,6 @@ function checkForMatch() {
     unflipCards();
   }
   var perfectGame = xAxis * yAxis;
-  console.log("Perfect game:" + perfectGame);
   // If you've made each successfull move, you must've finished
   if (successful == perfectGame / 2) {
     gameDone = 1;
