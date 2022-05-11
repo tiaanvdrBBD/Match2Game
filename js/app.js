@@ -4,16 +4,6 @@ let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
 var url = "C:/GradProgramme/LevelUps/Match2Game/";
-var maxTime = 10;
-var timeTaken = 0;
-var countDownDate = new Date();
-let gameDone = 0;
-var successful = 0;
-var unsuccessful = 0;
-
-countDownDate.setMinutes(countDownDate.getMinutes() + 10);
-countDownDate = new Date(countDownDate);
-console.log(countDownDate);
 
 // landing page
 function logSession() {
