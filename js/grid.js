@@ -47,7 +47,7 @@ let timerID = -1;
 
 function heuristic() {
   var fraction = successful / (successful + unsuccessful);
-  var result = (maxTime * 60) - timeTaken + (maxTime * 60) * fraction;
+  var result = Math.round((maxTime * 60) - timeTaken + (maxTime * 60) * fraction);
   return result > 0 ? result : 0;
 }
 
@@ -105,7 +105,8 @@ function flipCard() {
     //stop running the interval
     clearInterval(timerID);
     // display score
-    document.getElementById("timer").innerHTML = `Complete!" + "Your score is: ${heuristic()} Number of moves: ${successful + unsuccessful}`;
+    document.getElementById("timer").innerHTML = `Complete! Score: ${heuristic()}
+    Moves: ${successful + unsuccessful}`;
 
     // reset everything
     hasFlippedCard = false;
