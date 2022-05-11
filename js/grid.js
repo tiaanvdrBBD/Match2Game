@@ -3,17 +3,17 @@ const cards = document.querySelectorAll('.memory-card');
 let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
+let gameStart = 0;
+let gameDone = 0;  //sit next to line gameStart
 
 var maxTime = 5;
 var timeTaken = 0;
-var countDownDate = new Date();
-let gameDone = 0;
+var countDownDate = 0;
 var successful = 0;
 var unsuccessful = 0;
 var xAxis = 0;
 var yAxis = 0;
-countDownDate.setMinutes(countDownDate.getMinutes() + maxTime);
-countDownDate = new Date(countDownDate);
+
 
 function heuristic() {
   var fraction = successful / (successful + unsuccessful);
@@ -22,36 +22,70 @@ function heuristic() {
 }
 
 // Ticks every one second
-var x = setInterval(function () {
+/*setInterval(function () {
 
   var now = new Date().getTime();
   var timeLeft = countDownDate - now;
   var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-  // Display the result in the element with id="demo"
-  document.getElementById("demo").innerHTML = minutes + "m " + seconds + "s ";
+  // Display the result in the element with id="timer"
+  document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
   var minutesLeft = maxTime - minutes;
   var secondsLeft = 60 - seconds;
   timeTaken = minutesLeft * 60 + secondsLeft;
 
   if (timeLeft < 0) {
-    clearInterval(x);
-    document.getElementById("demo").innerHTML = "EXPIRED";
+    clearInterval();
+    document.getElementById("timer").innerHTML = "EXPIRED";
     console.log("Your time has expired!");
     console.log("Number of moves: " + (successful+unsuccessful).toString());
     gameDone = 1;
   } else if (gameDone == 1) {
-    clearInterval(x);
+    clearInterval();
     console.log(heuristic());
     console.log("You won the game!");
     console.log("Your score is: " + heuristic());
     console.log("Number of moves: " + (successful+unsuccessful).toString());
   }
-}, 1000);
+}, 1000);  */
+
+function tick() {
+  var now = new Date().getTime();
+  var timeLeft = countDownDate - now;
+  var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="timer"
+  document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
+  var minutesLeft = maxTime - minutes;
+  var secondsLeft = 60 - seconds;
+  timeTaken = minutesLeft * 60 + secondsLeft;
+
+  if (timeLeft < 0) {
+    clearInterval();
+    document.getElementById("timer").innerHTML = "EXPIRED";
+    console.log("Your time has expired!");
+    console.log("Number of moves: " + (successful+unsuccessful).toString());
+    gameDone = 1;
+  } else if (gameDone == 1) {
+    clearInterval();
+    console.log(heuristic());
+    console.log("You won the game!");
+    console.log("Your score is: " + heuristic());
+    console.log("Number of moves: " + (successful+unsuccessful).toString());
+  }
+}
 
 function flipCard() {
   if (lockBoard) return;
+  if (gameStart == 1) {
+    gameStart = 0;
+    countDownDate = new Date();
+    countDownDate.setMinutes(countDownDate.getMinutes() + maxTime);
+    countDownDate = new Date(countDownDate);
+    setInterval(tick, 1000);
+  }
   if (this === firstCard) return;
 
   this.classList.add('flip');
@@ -140,6 +174,7 @@ function freePlayGenerate() {
 function populateGrid(gridSizeX, gridSizeY) {
   xAxis = gridSizeX;
   yAxis = gridSizeY;
+  gameStart = 1;
   const grid = document.getElementsByClassName("memory-game")[0];
   grid.replaceChildren();
   let imageCount = 0;
