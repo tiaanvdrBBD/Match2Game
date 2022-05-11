@@ -9,11 +9,14 @@
 </head>
 
 <body>
-
   <nav id="top-nav">
-    <a href="/index.html" class="btn_play_container"><button 
-        class="btn_play">Home</button></a>
+    <a href="/index.html" class="btn_play_container"><button class="btn_play">Home</button></a>
   </nav>
+
+  <section id="timer-container">
+    <p id="timerLabel"></p>
+    <button id="timer-button" onclick="playAgain()" hidden="true">Play again</button>
+  </section>
 
   <section id="buttonPanel">
     <button onclick="populateGrid(4, 3)">4x3</button>
@@ -29,7 +32,7 @@
   </section>
 
   <section class="memory-game"></section>
-  <p id="demo"></p>
+
 </body>
 
 </html>
