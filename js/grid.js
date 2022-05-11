@@ -4,6 +4,49 @@ let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
 
+var maxTime = 10;
+var timeTaken = 0;
+var countDownDate = new Date();
+let gameDone = 0;
+var successful = 0;
+var unsuccessful = 0;
+countDownDate.setMinutes(countDownDate.getMinutes() + 10);
+countDownDate = new Date(countDownDate);
+
+// Ticks every one second
+var x = setInterval(function () {
+
+  var now = new Date().getTime();
+  var timeLeft = countDownDate - now;
+  var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo").innerHTML = minutes + "m " + seconds + "s ";
+  var minutesLeft = maxTime - minutes;
+  var secondsLeft = 60 - seconds;
+  timeTaken = minutesLeft * 60 + secondsLeft;
+
+  if (timeLeft < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+    gameDone = 1;
+  } else if (gameDone == 1) {
+    clearInterval(x);
+    console.log(heuristic());
+    console.log("You won the game!");
+    console.log("Your score is: " + hearistic());
+    console.log("Number of moves: " + (successful+unsuccessful).toString());
+  }
+}, 1000);
+
+
+function heuristic() {
+  var fraction = successful / (successful + unsuccessful);
+  var result = (maxTime * 60) - timeTaken + (maxTime * 60) * fraction;
+  return result > 0 ? result : 0;
+}
+
 function flipCard() {
   if (lockBoard) return;
   if (this === firstCard) return;
@@ -28,7 +71,15 @@ function flipCard() {
 function checkForMatch() {
   let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
 
-  isMatch ? disableCards() : unflipCards();
+  if (isMatch) {
+    successful++;
+    disableCards();
+  } else {
+    unsuccessful++;
+    unflipCards();
+  }
+
+  console.log(heuristic());
 };
 
 function disableCards() {
