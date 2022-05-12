@@ -4,8 +4,7 @@ let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
 let gameStart = 0;
-let gameDone = 0; //sit next to line gameStart
-
+let gameDone = 0;
 var maxTime = 5;
 var timeTaken = 0;
 var countDownDate = 0;
@@ -13,7 +12,7 @@ var successful = 0;
 var unsuccessful = 0;
 var xAxis = 0;
 var yAxis = 0;
-// added
+
 let timerID = -1;
 
 function playAgain() {
@@ -76,9 +75,6 @@ function flipCard() {
   hasFlippedCard = false;
   secondCard = this;
 
-
-  
-
   checkForMatch();
 
   if (gameDone == 1) {
@@ -97,21 +93,7 @@ function resetTimer(timerString) {
     clearInterval(timerID);
     timerID = -1;
   }
-
-  // reset everything
-  hasFlippedCard = false;
-  lockBoard = false;
-  firstCard, secondCard;
-  gameStart = 0;
-  gameDone = 0; //sit next to line gameStart
-  maxTime = 5;
-  timeTaken = 0;
-  countDownDate = 0;
-  successful = 0;
-  unsuccessful = 0;
-  xAxis = 0;
-  yAxis = 0;
-
+  reset();
 }
 
 function checkForMatch() {
@@ -186,7 +168,6 @@ function freePlayGenerate() {
 
 
 function populateGrid(gridSizeX, gridSizeY) {
-  
   // reset timer
   resetTimer('5m 00s');
   xAxis = gridSizeX;
@@ -227,4 +208,20 @@ function populateGrid(gridSizeX, gridSizeY) {
 
   const columnSpread = 'auto ';
   grid.style.gridTemplate = `${100 / gridSizeY}% / ${columnSpread.repeat(gridSizeX)}`;
+}
+
+
+function reset() {
+  hasFlippedCard = false;
+  lockBoard = false;
+  firstCard, secondCard;
+  gameStart = 0;
+  gameDone = 0; //sit next to line gameStart
+  maxTime = 5;
+  timeTaken = 0;
+  countDownDate = 0;
+  successful = 0;
+  unsuccessful = 0;
+  xAxis = 0;
+  yAxis = 0;
 }

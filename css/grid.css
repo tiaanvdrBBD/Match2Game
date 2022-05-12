@@ -12,21 +12,30 @@
     margin-top: 20px;
 }
 
+.maincontainer {
+    display: flex;
+}
+
+.leaderboard {
+    flex: 1;
+    margin: auto;
+}
+
 .memory-game {
     display: grid;
-    grid-template: 25vw / auto auto auto auto;
+    flex: 3;
+    grid-template: 10vw / auto auto auto auto;
     grid-gap: 10px;
     padding: 10px;
     margin: auto;
 }
-
 .memory-game>article {
     padding: 20px 0;
     transform: scale(1);
     transform-style: preserve-3d;
     transition: transform .5s;
-    width: calc(25% - 10px);
-    height: calc(33.33% - 10px);
+    /*width: calc(25% - 10px);
+    height: calc(33.33% - 10px);*/
 }
 
 .memory-card:active {
