@@ -54,7 +54,13 @@ function flipCard() {
     gameStart = 0;
     countDownDate = new Date();
     countDownDate.setMinutes(countDownDate.getMinutes() + maxTime);
+    countDownDate.setSeconds(countDownDate.getSeconds() + 1);
     countDownDate = new Date(countDownDate);
+
+    if (timerID == -1) {
+      // set unique ID to interval 
+      timerID = setInterval(tick, 1000);
+    }
   }
   if (this === firstCard) return;
 
@@ -70,35 +76,43 @@ function flipCard() {
   hasFlippedCard = false;
   secondCard = this;
 
+
+  
+
   checkForMatch();
 
-  if (timerID == -1) {
-    // set unique ID to interval 
-    timerID = setInterval(tick, 1000);
-  }
   if (gameDone == 1) {
-    //stop running the interval
-    clearInterval(timerID);
-    // display score
-    document.getElementById("timerLabel").innerHTML = `Complete! Score: ${heuristic()}
-    Moves: ${successful + unsuccessful}`;
-    // reset everything
-    hasFlippedCard = false;
-    lockBoard = false;
-    firstCard, secondCard;
-    gameStart = 0;
-    gameDone = 0; //sit next to line gameStart
-    maxTime = 5;
-    timeTaken = 0;
-    countDownDate = 0;
-    successful = 0;
-    unsuccessful = 0;
-    xAxis = 0;
-    yAxis = 0;
-    timerID = -1;
+    resetTimer(`Complete! Score: ${heuristic()}
+    Moves: ${successful + unsuccessful}`);
   }
 
 };
+function resetTimer(timerString) {
+
+  // set timer text
+  document.getElementById("timerLabel").innerHTML = timerString;
+
+  //stop running the interval
+  if (timerID !== -1) {
+    clearInterval(timerID);
+    timerID = -1;
+  }
+
+  // reset everything
+  hasFlippedCard = false;
+  lockBoard = false;
+  firstCard, secondCard;
+  gameStart = 0;
+  gameDone = 0; //sit next to line gameStart
+  maxTime = 5;
+  timeTaken = 0;
+  countDownDate = 0;
+  successful = 0;
+  unsuccessful = 0;
+  xAxis = 0;
+  yAxis = 0;
+
+}
 
 function checkForMatch() {
   let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
@@ -172,9 +186,13 @@ function freePlayGenerate() {
 
 
 function populateGrid(gridSizeX, gridSizeY) {
+  
+  // reset timer
+  resetTimer('5m 00s');
   xAxis = gridSizeX;
   yAxis = gridSizeY;
   gameStart = 1;
+
   const grid = document.getElementsByClassName("memory-game")[0];
   grid.replaceChildren();
   let imageCount = 0;
@@ -186,8 +204,8 @@ function populateGrid(gridSizeX, gridSizeY) {
     let card = document.createElement('article');
     card.setAttribute("class", "memory-card");
     card.setAttribute('data-framework', imageSource);
-    card.style.width = `${100/gridSizeX - 2}vw`;
-    card.style.height = `${gridSizeY*2}vw`;
+    card.style.width = `${100 / gridSizeX - 2}vw`;
+    card.style.height = `${gridSizeY * 2}vw`;
 
     let cardImage1 = document.createElement('img');
     cardImage1.setAttribute("class", "front-face");
@@ -208,5 +226,5 @@ function populateGrid(gridSizeX, gridSizeY) {
   }
 
   const columnSpread = 'auto ';
-  grid.style.gridTemplate = `${100/gridSizeY}% / ${columnSpread.repeat(gridSizeX)}`;
+  grid.style.gridTemplate = `${100 / gridSizeY}% / ${columnSpread.repeat(gridSizeX)}`;
 }
