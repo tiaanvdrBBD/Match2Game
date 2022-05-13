@@ -13,9 +13,6 @@ const port = 3000; // set up our port
 app.listen(port, () => console.log(`Server started on ${port}...`)); // start server
 
 const mysql = require('mysql');
-const {
-    response
-} = require('express');
 
 const connection = mysql.createConnection({
     host: 'match2game.cn20xj6c080k.us-east-1.rds.amazonaws.com',
@@ -31,7 +28,8 @@ let db_connected = false;
 connection.connect((err) => {
     // failure
     if (err) {
-        console.log(`Error connecting to Db...\n ${err}`);
+        console.log(`Error connecting to Db...`);
+        db_connected = false;
         return;
     } else {
         // success
@@ -40,75 +38,120 @@ connection.connect((err) => {
     }
 });
 
-// turns error-first callback function into promise.
-const query = util.promisify(connection.query).bind(connection);
+// wraps queries of error-first callback nature into responses with custom returns 
+// (why? so that we can handle errors as normal messages and not `errors` -meaning we dont break code).
+const query = async (request) => {
+    // turns error-first callback function into promise.
+    const newQuery = util.promisify(connection.query).bind(connection);
 
+    // now I can always return an object to client regardsless of query and result.
+    return await newQuery(request)
+        .then(r => {
+            return {
+                success: true,
+                data: r
+            };
+        })
+        .catch(e => {
+            return {
+                success: false,
+                error: e
+            };
+        });
+}
 
 app.post('/api/scores', async (request, response) => {
     console.log(`POST/api/scores request received...grid id: ${request.query.gridID}`);
 
-    if (db_connected) {
-        // get users from db
-        let data = await query(`select * from Score where gridID=${request.query.gridID}`)
-        // sort ascending
-        let data_sorted = data.sort((a, b) => {
-            // compare logic
-            if (a.score < b.score) return -1;
-            if (a.score > b.score) return 1;
-            return 0;
-        });
+    let gridScores_obj = {};
 
-        // send response to client
-        response.send(data_sorted);
+    if (db_connected) {
+        // query
+        gridScores_obj = await query(`select * from Score where gridID=${request.query.gridID}`);
+
+        // db success
+        if (gridScores_obj.success) {
+            // sort ascending
+            let data_sorted = gridScores_obj.data.sort((a, b) => {
+                // compare logic
+                if (a.score < b.score) return -1;
+                if (a.score > b.score) return 1;
+                return 0;
+            });
+            gridScores_obj.data = data_sorted;
+        }
     } else {
-        // send data
-        response.send('server error');
+        // define obj to return
+        gridScores_obj = {
+            success: false,
+            error: "error: server not connected to db - try again."
+        };
     }
+    // send response
+    response.send(gridScores_obj);
+    // print overall feedback
+    console.log(`POST/api/scores request success: ${gridScores_obj.success}`);
 });
 
 app.post('/api/usernames', async (request, response) => {
     console.log(`POST/api/usernames request received...`);
 
+    let usernames_obj = {};
     if (db_connected) {
-        // get users from db
-        let usernames = await query(`select username from Score;`)
-
-        // send response to client
-        response.send(usernames);
+        // query
+        usernames_obj = await query(`select username from Score;`);
     } else {
-        // send data
-        response.send('server error');
+        // define obj to return
+        usernames_obj = {
+            success: false,
+            error: "error: server not connected to db - try again."
+        };
     }
+    // send response
+    response.send(usernames_obj);
+    // print overall feedback
+    console.log(`POST/api/usernames request success: ${usernames_obj.success}`);
+
 });
 
 app.post('/api/insert', async (request, response) => {
     console.log(`POST/api/insert request received...`);
 
+    let feedback_obj = {};
     if (db_connected) {
-        // get users from db
-        let feedback = await query(`insert into Score (username, time_, moves, score, gridID) values ('${request.query.username}', ${request.query.time}, ${request.query.moves}, ${request.query.score}, ${request.query.gridID});`)
-
-        // send response to client
-        response.send(feedback);
+        // query
+        feedback_obj = await query(`insert into Score (username, time_, moves, score, gridID) values 
+        ('${request.query.username}', ${request.query.time}, ${request.query.moves}, ${request.query.score}, ${request.query.gridID});`)
     } else {
-        // send data
-        response.send('server error');
+        // define obj to return
+        feedback_obj = {
+            success: false,
+            error: "error: server not connected to db - try again."
+        };
     }
+    // send response
+    response.send(feedback_obj);
+    // print overall feedback
+    console.log(`POST/api/insert request success: ${feedback_obj.success}`);
 });
 
 app.put('/api/update', async (request, response) => {
     console.log(`PUT/api/update request received...`);
 
+    let feedback_obj = {};
     if (db_connected) {
-        // get users from db
+        // query
+        feedback_obj = await query(`update Score set time_=${request.query.time}, moves=${request.query.moves}, score=${request.query.score}, gridID=${request.query.gridID} where username='${request.query.username}';`)
 
-        let feedback = await query(`update Score set time_=${request.query.time}, moves=${request.query.moves}, score=${request.query.score}, gridID=${request.query.gridID} where username='${request.query.username}';`)
-
-        // send response to client
-        response.send(feedback);
-        //  response.send(feedback);
     } else {
-        // send data
-        response.send('server error: not connected to db yet... try again');
+        // define obj to return
+        usernames_obj = {
+            success: false,
+            error: "error: server not connected to db - try again."
+        };
     }
+    // send response
+    response.send(feedback_obj);
+    // print overall feedback
+    console.log(`PUT/api/update request success: ${feedback_obj.success}`);
 });
