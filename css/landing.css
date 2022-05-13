@@ -1,5 +1,15 @@
-#form{
-    gap: 32px;
+#form, #howToInfo{
     padding-left: 4em;
     padding-right: 4em;
+}
+
+#howToInfo{
+    display: none;
+    width: 40vw;
+    gap: 1em;
+}
+
+#form{
+    width: 40vw; 
+    gap: 1.5em;
 }
