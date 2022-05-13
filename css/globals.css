@@ -144,7 +144,7 @@ input[type=text]{
         text-align: center;
     }
 
-    #form, #howToInfo{
+    #form, #howToInfo, #leaderboardContainer{
         border-radius: 0;
         min-width: fit-content;
     }
