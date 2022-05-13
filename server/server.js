@@ -60,16 +60,35 @@ const query = async (request) => {
         });
 }
 
-app.post('/api/scores', async (request, response) => {
-    console.log(`POST/api/scores request received...grid id: ${request.query.gridID}`);
+async function handleRequest(calculations, queryString, headerString, response) {
+    console.log(`${headerString} request received...`);
 
-    let gridScores_obj = {};
-
+    let response_obj = {};
     if (db_connected) {
         // query
-        gridScores_obj = await query(`select * from Score where gridID=${request.query.gridID}`);
+        response_obj = await query(queryString);
 
-        // db success
+        // (optional calculations)
+        if (calculations !== null) {
+            calculations();
+        }
+
+    } else {
+        // define obj to return
+        response_obj = {
+            success: false,
+            error: "error: server not connected to db - try again."
+        };
+    }
+    // send response
+    response.send(response_obj);
+    // print overall feedback
+    console.log(`${headerString} request success: ${response_obj.success}`);
+};
+app.post('/api/scores', async (request, response) => {
+
+    // db success
+    function calcs() {
         if (gridScores_obj.success) {
             // sort ascending
             let data_sorted = gridScores_obj.data.sort((a, b) => {
@@ -80,78 +99,23 @@ app.post('/api/scores', async (request, response) => {
             });
             gridScores_obj.data = data_sorted;
         }
-    } else {
-        // define obj to return
-        gridScores_obj = {
-            success: false,
-            error: "error: server not connected to db - try again."
-        };
     }
-    // send response
-    response.send(gridScores_obj);
-    // print overall feedback
-    console.log(`POST/api/scores request success: ${gridScores_obj.success}`);
+
+    handleRequest(calcs(), `select * from Score where gridID=${request.query.gridID}`, `POST/api/scores`, response);
 });
 
 app.post('/api/usernames', async (request, response) => {
-    console.log(`POST/api/usernames request received...`);
 
-    let usernames_obj = {};
-    if (db_connected) {
-        // query
-        usernames_obj = await query(`select username from Score;`);
-    } else {
-        // define obj to return
-        usernames_obj = {
-            success: false,
-            error: "error: server not connected to db - try again."
-        };
-    }
-    // send response
-    response.send(usernames_obj);
-    // print overall feedback
-    console.log(`POST/api/usernames request success: ${usernames_obj.success}`);
-
+    handleRequest(null, `select username from Score;`, `POST/api/insert`, response);
 });
 
 app.post('/api/insert', async (request, response) => {
-    console.log(`POST/api/insert request received...`);
 
-    let feedback_obj = {};
-    if (db_connected) {
-        // query
-        feedback_obj = await query(`insert into Score (username, time_, moves, score, gridID) values 
-        ('${request.query.username}', ${request.query.time}, ${request.query.moves}, ${request.query.score}, ${request.query.gridID});`)
-    } else {
-        // define obj to return
-        feedback_obj = {
-            success: false,
-            error: "error: server not connected to db - try again."
-        };
-    }
-    // send response
-    response.send(feedback_obj);
-    // print overall feedback
-    console.log(`POST/api/insert request success: ${feedback_obj.success}`);
+    handleRequest(null, `insert into Score (username, time_, moves, score, gridID) values 
+    ('${request.query.username}', ${request.query.time}, ${request.query.moves}, ${request.query.score}, ${request.query.gridID});`, `POST/api/insert`, response);
 });
 
 app.put('/api/update', async (request, response) => {
-    console.log(`PUT/api/update request received...`);
 
-    let feedback_obj = {};
-    if (db_connected) {
-        // query
-        feedback_obj = await query(`update Score set time_=${request.query.time}, moves=${request.query.moves}, score=${request.query.score}, gridID=${request.query.gridID} where username='${request.query.username}';`)
-
-    } else {
-        // define obj to return
-        usernames_obj = {
-            success: false,
-            error: "error: server not connected to db - try again."
-        };
-    }
-    // send response
-    response.send(feedback_obj);
-    // print overall feedback
-    console.log(`PUT/api/update request success: ${feedback_obj.success}`);
+    handleRequest(null, `select username from Score;`, `update Score set time_=${request.query.time}, moves=${request.query.moves}, score=${request.query.score}, gridID=${request.query.gridID} where username='${request.query.username}';`, response);
 });
