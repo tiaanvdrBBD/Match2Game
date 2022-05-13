@@ -68,9 +68,9 @@ async function handleRequest(calculations, queryString, headerString, response) 
         // query
         response_obj = await query(queryString);
 
-        // (optional calculations)
+        // (optional calculations to add logic to incoming data)
         if (calculations !== null) {
-            calculations();
+            response_obj = calculations(response_obj);
         }
 
     } else {
@@ -87,26 +87,35 @@ async function handleRequest(calculations, queryString, headerString, response) 
 };
 app.post('/api/scores', async (request, response) => {
 
-    // db success
-    function calcs() {
-        if (gridScores_obj.success) {
+    // custom logic needed to sort
+    function calcs(curObj) {
+        if (curObj.success) {
             // sort ascending
-            let data_sorted = gridScores_obj.data.sort((a, b) => {
+            let data_sorted = curObj.data.sort((a, b) => {
                 // compare logic
                 if (a.score < b.score) return -1;
                 if (a.score > b.score) return 1;
                 return 0;
             });
-            gridScores_obj.data = data_sorted;
+            curObj.data = data_sorted;
+            return curObj;
         }
     }
 
-    handleRequest(calcs(), `select * from Score where gridID=${request.query.gridID}`, `POST/api/scores`, response);
+    handleRequest(calcs, `select * from Score where gridID=${request.query.gridID}`, `POST/api/scores`, response);
 });
 
 app.post('/api/usernames', async (request, response) => {
 
-    handleRequest(null, `select username from Score;`, `POST/api/insert`, response);
+    function getOnlyUsernames(curObj) {
+        if (curObj.success) {
+            // sort ascending
+            let data_sorted = curObj.data.map(i => i.username);
+            curObj.data = data_sorted;
+            return curObj;
+        }
+    }
+    handleRequest(getOnlyUsernames, `select username from Score;`, `POST/api/usernames`, response);
 });
 
 app.post('/api/insert', async (request, response) => {
@@ -117,5 +126,5 @@ app.post('/api/insert', async (request, response) => {
 
 app.put('/api/update', async (request, response) => {
 
-    handleRequest(null, `select username from Score;`, `update Score set time_=${request.query.time}, moves=${request.query.moves}, score=${request.query.score}, gridID=${request.query.gridID} where username='${request.query.username}';`, response);
+    handleRequest(null, `update Score set time_=${request.query.time}, moves=${request.query.moves}, score=${request.query.score}, gridID=${request.query.gridID} where username='${request.query.username}';`, `POST/api/update`, response);
 });
