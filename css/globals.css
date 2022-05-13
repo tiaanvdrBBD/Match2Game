@@ -1,0 +1,150 @@
+:root {
+    --primary: #2C0088;
+    --secondary: #F4485D;
+    --app-backround: #FFFFFF ; 
+}
+
+html{
+    height: 100%;
+}
+
+body{
+    font-family: 'Be Vietnam'; 
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    margin: 0;
+    background-color: powderblue;
+}
+
+h1{
+    font-family: 'Chewy';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    margin: 0;
+}
+
+label{
+    font-family: 'Be Vietnam';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 35px; 
+}
+
+.informationCard{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    flex-wrap: wrap;
+    background-color: var(--app-backround);
+    box-shadow: 5px 5px 20px rgba(44, 0, 136, 0.15);
+    border-radius: 16px;
+    padding: 2em 2em;
+}
+
+input[type=text]{
+    box-sizing: border-box;
+    padding: 0.8em 1.5em;
+    border: 1px solid var(--primary);
+    border-radius: 16px;
+    color: var(--secondary);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.5em;
+}
+
+/** Buttons styling  **/
+.button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 20px;
+    height: 3em;
+}
+
+.button:hover{
+    cursor: pointer;
+    border-width: 2px;
+}
+
+.button:hover i{
+    transition: 0.4s ease-in-out;
+    transform: translateX(15px) ;
+}
+
+.primary-button{
+    background-color: var(--app-backround);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    width: 5.5em;
+}
+
+.secondary-button{
+    background-color: var(--primary);
+    color: var(--app-backround);
+    border: 1px solid var(--primary);
+    width: 11em;
+}
+
+.tertiary-button{
+    background-color: var(--app-backround);
+    color: var(--secondary);
+    border: 1px solid var(--secondary);
+    width: 5.5em;
+}
+
+.buttonContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+
+.iconButton{
+    flex-direction: row;
+}
+
+
+
+
+
+/** Media Queries **/
+@media (max-width: 620px)  { 
+    
+    h1{
+        font-size: 60px;
+        text-align: center;
+    }
+
+    #form{
+        border-radius: 0;
+    }
+
+    .buttonContainer{
+        justify-content: center;
+    }
+
+    .primary-button{
+        width: 7em;
+    }
+
+    .secondary-button{
+        width: 80vw;
+    }
+
+}
+
+
+@media (max-width: 600px)  { 
+    input[type=text]{
+        font-size: 15px;
+    }
+}
