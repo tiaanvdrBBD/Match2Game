@@ -4,13 +4,32 @@
 <head>
   <meta charset="utf-8">
   <title>Memory Tiles</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/globals.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <link href='https://fonts.googleapis.com/css?family=Chewy' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Be Vietnam' rel='stylesheet'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
-  <section class="form">
-    <label class="label" for="">username </label>
+  <section id="form" class="informationCard">
+    <h1>Welcome to the Pond!</h1>
+    <label class="label" for="">What is your name?</label>
     <input class="name_input" type="text" name="username" id="username">
+
+    <label class="label" for="">Choose your pond size</label>
+    <section class="buttonContainer">
+      <button class="button primary-button"> 4x4 </button>
+      <button class="button primary-button"> 6x6 </button>
+      <button class="button primary-button"> 8x8 </button>
+    </section>
+
+    <section class="buttonContainer">
+      <button class="button secondary-button"> How to play </button>
+      <button class="button secondary-button"><article class="iconButton">Start Game <i class='fas fa-arrow-right'></i></article> </button>
+    </section>
+
 
     <a href="html/grid.html" class="btn_play_container"><button onclick="logSession()"
         class="btn_play">Play!</button></a>
