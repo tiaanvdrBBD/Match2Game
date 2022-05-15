@@ -14,10 +14,9 @@
 
 .memory-game {
     display: grid;
-    grid-template: 25vw / auto auto auto auto;
-    grid-gap: 10px;
-    padding: 10px;
-    margin: auto;
+    grid-template: 2vw / auto auto auto auto;
+    grid-gap: 5px;
+    padding: 2px;
 }
 
 .memory-game>article {
@@ -25,8 +24,6 @@
     transform: scale(1);
     transform-style: preserve-3d;
     transition: transform .5s;
-    width: calc(25% - 10px);
-    height: calc(33.33% - 10px);
 }
 
 .memory-card:active {
@@ -43,9 +40,7 @@
     width: 100%;
     height: 100%;
     position: absolute;
-    border: 2px solid black;
-    border-radius: 5px;
-    background: royalblue;
+    border-radius: 8px;
     backface-visibility: hidden;
 }
 
