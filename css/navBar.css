@@ -1,0 +1,22 @@
+.navBar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.items {
+  float: left;
+}
+
+.items a {
+  display: block;
+  color: #2C0088;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}

@@ -14,8 +14,8 @@
 
 .memory-game {
     display: grid;
-    grid-template: 2vw / auto auto auto auto;
-    grid-gap: 5px;
+    grid-template: 23% / auto auto auto auto;
+    row-gap: 1em;
     padding: 2px;
 }
 

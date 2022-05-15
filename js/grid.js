@@ -196,12 +196,12 @@ function populateGrid(gridSizeX, gridSizeY) {
 
     let cardImage1 = document.createElement('img');
     cardImage1.setAttribute("class", "front-face");
-    cardImage1.setAttribute("src", 'img/' + imageSource + '.svg');
+    cardImage1.setAttribute("src", '../img/' + imageSource + '.svg');
     cardImage1.setAttribute("alt", imageSource);
 
     let cardImage2 = document.createElement('img');
     cardImage2.setAttribute("class", "back-face");
-    cardImage2.setAttribute("src", "img/rectangle_cover.svg");
+    cardImage2.setAttribute("src", "../img/rectangle_cover.svg");
     cardImage2.setAttribute("alt", "");
 
     card.appendChild(cardImage1);
