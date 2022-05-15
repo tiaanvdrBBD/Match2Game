@@ -15,6 +15,14 @@ function logSession() {
   alert(sessionStorage.getItem('username'));
 }
 
+function getGrid(x, y) {
+  sessionStorage.setItem("gridX", x);
+  sessionStorage.setItem("gridY", y);
+
+  //TODO: remove this: used as debug
+  console.log(sessionStorage.getItem("gridX")+":"+sessionStorage.getItem("gridY"));
+}
+
 function flipCard() {
   if (lockBoard) return;
   if (this === firstCard) return;
