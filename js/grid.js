@@ -16,6 +16,11 @@ var yAxis = 0;
 // added
 let timerID = -1;
 
+
+function showGrid() {
+  populateGrid(sessionStorage.getItem("gridX"),sessionStorage.getItem("gridY"));
+}
+
 function playAgain() {
   alert('helle');
 }
@@ -73,7 +78,7 @@ function flipCard() {
   checkForMatch();
 
   if (timerID == -1) {
-    // set unique ID to interval 
+    // set unique ID to interval
     timerID = setInterval(tick, 1000);
   }
   if (gameDone == 1) {
@@ -152,7 +157,7 @@ function resetBoard() {
   });
 })();
 
-const cardImages = ['angular.svg', 'aurelia.svg', 'backbone.svg', 'ember.svg', 'js-badge.svg', 'react.svg', 'vue.svg', 'js-log.png'];
+const cardImages = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50'];
 
 function randomCardImages(gridSizeX, gridSizeY) {
   let randomSubset = cardImages.map(img => [img, Math.random()]).sort((a, b) => {
@@ -191,12 +196,12 @@ function populateGrid(gridSizeX, gridSizeY) {
 
     let cardImage1 = document.createElement('img');
     cardImage1.setAttribute("class", "front-face");
-    cardImage1.setAttribute("src", '../img/' + imageSource);
+    cardImage1.setAttribute("src", '../img/' + imageSource + '.svg');
     cardImage1.setAttribute("alt", imageSource);
 
     let cardImage2 = document.createElement('img');
     cardImage2.setAttribute("class", "back-face");
-    cardImage2.setAttribute("src", "../img/star.svg");
+    cardImage2.setAttribute("src", "../img/rectangle_cover.svg");
     cardImage2.setAttribute("alt", "");
 
     card.appendChild(cardImage1);
