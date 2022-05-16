@@ -4,36 +4,76 @@
 <head>
   <meta charset="utf-8">
   <title>Memory Tiles</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/globals.css">
   <link rel="stylesheet" href="../css/grid.css">
+  <link rel="stylesheet" href="../css/navBar.css">
+  <link href='https://fonts.googleapis.com/css?family=Chewy' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Be Vietnam' rel='stylesheet'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
   <script src="../js/grid.js"></script>
+  <script src="../js/index.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/globals.css">
+  <link href='https://fonts.googleapis.com/css?family=Chewy' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Be Vietnam' rel='stylesheet'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 </head>
 
+
 <body>
-  <nav id="top-nav">
-    <a href="/index.html" class="btn_play_container"><button class="btn_play">Home</button></a>
-  </nav>
+  <section id="grid">
+    <nav id="top-nav">
+      <a href="/index.html" class="btn_play_container"><button class="btn_play">Home</button></a>
+    </nav>
 
-  <section id="timer-container">
-    <p id="timerLabel">5m 0s</p>
-    <button id="timer-button" onclick="playAgain()" hidden="true">Play again</button>
-  </section>
+<body onload="showGrid()">
 
-  <section id="buttonPanel">
-    <button onclick="populateGrid(4, 3)">4x3</button>
-    <button onclick="populateGrid(4 ,4)">4x4</button>
-    <button onclick="populateGrid(5, 4)">5x4</button>
-    <button onclick="freePlayShow()">Free Play</button>
-  </section>
-  <section id="freePlayInputSection">
-    <label for="freePlayGridInput">Enter Grid Size: </label>
-    <input type="number" value="3" min="3" max="10" id="freePlayGridInput1" name="freePlayGridInput1">
-    <input type="number" value="3" min="3" max="10" id="freePlayGridInput2" name="freePlayGridInput2">
-    <button onclick="freePlayGenerate()">Generate Grid</button>
-  </section>
-<section class="maincontainer">
-  <section class="memory-game"></section>
-</section>
+  <ul class="navBar">
+    <li  class="items"><a class="active" href="../index.html">Home</a></li>
 
+    <section id="timer-container">
+      <p id="timerLabel">5m 0s</p>
+      <button id="timer-button" onclick="playAgain()" hidden="true">Play again</button>
+    </section>
+
+
+    <section id="buttonPanel">
+      <button onclick="populateGrid(4, 3)">4x3</button>
+      <button onclick="populateGrid(4 ,4)">4x4</button>
+      <button onclick="populateGrid(5, 4)">5x4</button>
+      <button onclick="freePlayShow()">Free Play</button>
+    </section>
+    <section id="freePlayInputSection">
+      <label for="freePlayGridInput">Enter Grid Size: </label>
+      <input type="number" value="3" min="3" max="10" id="freePlayGridInput1" name="freePlayGridInput1">
+      <input type="number" value="3" min="3" max="10" id="freePlayGridInput2" name="freePlayGridInput2">
+      <button onclick="freePlayGenerate()">Generate Grid</button>
+    </section>
+
+    <section class="memory-game"></section>
+  </section>
+ </ul>
+
+<section id="gongratulations" class="informationCard" style="display: none;">
+    <h1>Gongratulations</h1>
+    <section class="gongratulationsFlavorText">
+      <img src="../img/1.svg" alt="Fish showing thumbs up">
+      <p>You made it out the fish pond.</p>
+    </section>
+
+    <h2 id="vicoryMessage"></h2>
+
+    <section class="buttonContainer">
+      <button class="button secondary-button">View the Fish Pond</button>
+      <button class="button secondary-button">
+        <article class="iconButton" onclick="hideGongratulations()">Play Again <i class='fas fa-arrow-right'></i></article>
+      </button>
+    </section>
+
+  </section>
 
 </body>
 

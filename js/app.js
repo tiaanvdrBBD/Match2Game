@@ -10,5 +10,13 @@ function logSession() {
   // add username to session storage
   sessionStorage.setItem("username", JSON.stringify(document.getElementById("username").value));
   // TODO: remove (show username for dev)
-  alert(sessionStorage.getItem('username'));
+  console.log(sessionStorage.getItem('username'));
+}
+
+function getGrid(x, y) {
+  sessionStorage.setItem("gridX", x);
+  sessionStorage.setItem("gridY", y);
+
+  //TODO: remove this: used as debug
+  console.log(sessionStorage.getItem("gridX")+":"+sessionStorage.getItem("gridY"));
 }
