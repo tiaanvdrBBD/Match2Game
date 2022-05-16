@@ -136,6 +136,10 @@ input[type=text]{
     #form,#howToInfo{
         min-width: 65vw;
     }
+
+    .secondary-button{
+        width: 65vw;
+    }
 }
 
 @media (max-width: 630px)  { 
