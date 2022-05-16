@@ -12,7 +12,7 @@ function logSession() {
   sessionStorage.setItem("username", JSON.stringify(document.getElementById("username").value));
 
   // TODO: remove (show username for dev)
-  alert(sessionStorage.getItem('username'));
+  console.log(sessionStorage.getItem('username'));
 }
 
 function getGrid(x, y) {
