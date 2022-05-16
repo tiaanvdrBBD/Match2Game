@@ -4,7 +4,15 @@
 <head>
   <meta charset="utf-8">
   <title>Memory Tiles</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/globals.css">
   <link rel="stylesheet" href="../css/grid.css">
+  <link rel="stylesheet" href="../css/navBar.css">
+  <link href='https://fonts.googleapis.com/css?family=Chewy' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Be Vietnam' rel='stylesheet'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
   <script src="../js/grid.js"></script>
   <script src="../js/index.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,16 +22,23 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 </head>
 
+
 <body>
   <section id="grid">
     <nav id="top-nav">
       <a href="/index.html" class="btn_play_container"><button class="btn_play">Home</button></a>
     </nav>
 
+<body onload="showGrid()">
+
+  <ul class="navBar">
+    <li  class="items"><a class="active" href="../index.html">Home</a></li>
+
     <section id="timer-container">
       <p id="timerLabel"></p>
       <button id="timer-button" onclick="playAgain()" hidden="true">Play again</button>
     </section>
+
 
     <section id="buttonPanel">
       <button onclick="populateGrid(4, 3)">4x3</button>
@@ -40,8 +55,9 @@
 
     <section class="memory-game"></section>
   </section>
+ </ul>
 
-  <section id="gongratulations" class="informationCard" style="display: none;">
+<section id="gongratulations" class="informationCard" style="display: none;">
     <h1>Gongratulations</h1>
     <section class="gongratulationsFlavorText">
       <img src="../img/1.svg" alt="Fish showing thumbs up">

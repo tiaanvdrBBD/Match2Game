@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/globals.css">
   <link rel="stylesheet" href="css/landing.css">
+
+  <link rel="stylesheet" href="css/grid.css">
   <link href='https://fonts.googleapis.com/css?family=Chewy' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Be Vietnam' rel='stylesheet'>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
@@ -19,10 +21,11 @@
     <input class="name_input" type="text" name="username" id="username">
 
     <label class="label" for="">Choose your pond size</label>
+
     <section class="buttonContainer">
-      <button class="button primary-button"> 4x4 </button>
-      <button class="button primary-button"> 6x6 </button>
-      <button class="button primary-button"> 8x8 </button>
+      <button class="button primary-button" onclick="getGrid(4,4)"> 4x4 </button>
+      <button class="button primary-button" onclick="getGrid(6,6)"> 6x6 </button>
+      <button class="button primary-button" onclick="getGrid(8,8)"> 8x8 </button>
     </section>
 
     <section class="buttonContainer">
@@ -30,13 +33,62 @@
       <button class="button secondary-button">
         <article class="iconButton">Start Game <i class='fas fa-arrow-right'></i></article>
       </button>
+      <button class="button secondary-button" onclick="showHowToPlay()"> How to play </button>
+      <a href="html/grid.html">
+        <button class="button secondary-button" onclick="logSession()">
+          <article class="iconButton">
+            Start Game
+            <i class='fas fa-arrow-right'>
+            </i>
+          </article>
+        </button>
+      </a>
     </section>
 
-
-    <a href="html/grid.html" class="btn_play_container"><button onclick="logSession()"
-        class="btn_play">Play!</button></a>
   </section>
+
+  <section id="howToInfo" class="informationCard">
+    <h2>Game</h2>
+    <p>The object of the game is to collect all the matching pairs.</p>
+
+    <h2>Playing Aqua Find</h2>
+    <p>Start by clicking on a card to turn it over.Go ahead and turn around s second card. If the cards match you got a pair!If they don't match, they will turn back over and you
+    can select two cards again.
+    The game continues in this fashion until all the cards are played.</p>
+
+    <h2>Winning the Game</h2>
+    <p>Once all the cards have been played and all the matching pairs
+    are found, you win!he faster you get all the pairs and with the least amount of
+    moves the higher you will go up in the FIsh Pond</p>
+
+
+    <section class="buttonContainer">
+      <button class="button secondary-button" onclick="hideHowToPlay()">Back</button>
+    </section>
+    
+  </section>
+
+
+    <div><span class="dot"></span></div>
+    <div><span class="dot"></span></div>
+    <div><span class="dot"></span></div>
+    <div><span class="dot"></span></div>
+    <div><span class="dot"></span></div>
+    <div><span class="dot"></span></div>
+    <div><span class="dot"></span></div>
+    <div><span class="dot"></span></div>
+    <div><span class="dot"></span></div>
+    <div><span class="dot"></span></div>
+    <div><span class="dot"></span></div>
+    <div><span class="dot"></span></div>
+    <div><span class="dot"></span></div>
+    <div><span class="dot"></span></div>
+    <div><span class="dot"></span></div>
+    
+
+
   <script src="js/app.js"></script>
+  <script src="js/index.js"></script>
 </body>
 
 </html>

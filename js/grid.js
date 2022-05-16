@@ -14,6 +14,11 @@ var xAxis = 0;
 var yAxis = 0;
 let timerID = -1;
 
+
+function showGrid() {
+  populateGrid(sessionStorage.getItem("gridX"),sessionStorage.getItem("gridY"));
+}
+
 function playAgain() {
   alert('helle');
 }
@@ -71,7 +76,7 @@ function flipCard() {
   checkForMatch();
 
   if (timerID == -1) {
-    // set unique ID to interval 
+    // set unique ID to interval
     timerID = setInterval(tick, 1000);
   }
   if (gameDone == 1) {
@@ -203,7 +208,7 @@ function populateGrid(gridSizeX, gridSizeY) {
 
     let cardImage2 = document.createElement('img');
     cardImage2.setAttribute("class", "back-face");
-    cardImage2.setAttribute("src", "../img/star.svg");
+    cardImage2.setAttribute("src", "../img/rectangle_cover.svg");
     cardImage2.setAttribute("alt", "");
 
     card.appendChild(cardImage1);

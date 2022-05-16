@@ -1,0 +1,75 @@
+#leaderboardContainer{
+    padding-left: 4em;
+    padding-right: 4em;
+    width: 50vw;
+    gap: 1em;
+    height: 75vh;
+}
+
+tbody{
+    display: block;
+    height: 70vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-right: 2em;
+}
+
+thead, tbody tr , tfoot{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+tfoot{
+    color: var(--secondary);
+    margin-left: -0.2em;
+}
+
+thead {
+    width: calc( 100% - 1em );
+    font-family: 'Chewy';
+    font-size: 32px;
+    font-style: normal;
+    line-height: 42px;
+}
+
+td{
+    font-weight: 700;
+    line-height: 1em;
+    font-size: 20px;
+    text-align: center;
+}
+
+#activeLeaderPlacing{
+    display: table-caption;
+}
+
+::-webkit-scrollbar {
+    width: 0.5em;
+}
+  
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px var(--primary);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+}
+
+@media (max-width: 1000px)  { 
+    thead{
+        font-size: 28px;
+    }
+
+    #leaderboardContainer{
+        width: 70vw;
+    }
+}
+
+@media (max-width: 600px)  { 
+    .hideColumn{
+        display: none;
+    }
+}
