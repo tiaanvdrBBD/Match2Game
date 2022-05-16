@@ -46,12 +46,14 @@ const query = async (request) => {
 
     // now I can always return an object to client regardsless of query and result.
     return await newQuery(request)
+        // success
         .then(r => {
             return {
                 success: true,
                 data: r
             };
         })
+        // error
         .catch(e => {
             return {
                 success: false,
@@ -60,6 +62,7 @@ const query = async (request) => {
         });
 }
 
+// entry point for all incoming requests. calculations param is used to apply dynamic logic if needed for an endpoint.
 async function handleRequest(calculations, queryString, headerString, response) {
     console.log(`${headerString} request received...`);
 
@@ -86,6 +89,7 @@ async function handleRequest(calculations, queryString, headerString, response) 
     console.log(`${headerString} request success: ${response_obj.success}`);
 };
 
+// --- ENDPOINTS ---
 app.post('/api/scores', async (request, response) => {
 
     // custom logic needed to sort
