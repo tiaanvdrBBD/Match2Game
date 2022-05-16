@@ -4,8 +4,7 @@ let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
 let gameStart = 0;
-let gameDone = 0; //sit next to line gameStart
-
+let gameDone = 0;
 var maxTime = 5;
 var timeTaken = 0;
 var countDownDate = 0;
@@ -13,7 +12,6 @@ var successful = 0;
 var unsuccessful = 0;
 var xAxis = 0;
 var yAxis = 0;
-// added
 let timerID = -1;
 
 
@@ -85,7 +83,10 @@ function flipCard() {
     //stop running the interval
     clearInterval(timerID);
     // display score
-    document.getElementById("timerLabel").innerHTML = `Complete! Score: ${heuristic()}
+    showGongratulations();
+    document.getElementById("timerLabel").innerHTML = `You Won! Score: ${heuristic()}
+    Moves: ${successful + unsuccessful}`;
+    document.getElementById("vicoryMessage").innerHTML = `You Won! Score: ${heuristic()}
     Moves: ${successful + unsuccessful}`;
     // reset everything
     hasFlippedCard = false;
@@ -101,6 +102,9 @@ function flipCard() {
     xAxis = 0;
     yAxis = 0;
     timerID = -1;
+  } else {
+    hideGongratulations();
+    console.log("Hide");
   }
 
 };
@@ -145,6 +149,7 @@ function unflipCards() {
 };
 
 function resetBoard() {
+  hideGongratulations();
   [hasFlippedCard, lockBoard] = [false, false];
   [firstCard, secondCard] = [null, null];
 }
@@ -160,6 +165,7 @@ function resetBoard() {
 const cardImages = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50'];
 
 function randomCardImages(gridSizeX, gridSizeY) {
+  hideGongratulations();
   let randomSubset = cardImages.map(img => [img, Math.random()]).sort((a, b) => {
     return a[1] < b[1] ? -1 : 1;
   }).slice(0, gridSizeX * gridSizeY / 2).map(a => a[0]);
@@ -177,6 +183,7 @@ function freePlayGenerate() {
 
 
 function populateGrid(gridSizeX, gridSizeY) {
+  hideGongratulations();
   xAxis = gridSizeX;
   yAxis = gridSizeY;
   gameStart = 1;
