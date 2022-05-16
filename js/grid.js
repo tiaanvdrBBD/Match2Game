@@ -74,9 +74,11 @@
        return serverError();
      });
 
+
+
    // optional chaining catch used when query is unsucessful (like ERR_CONNECTION_REFUSED)
    try {
-     return await response_obj.json();
+     response_obj = await response_obj.json();
    } finally {
      return response_obj;
    }
@@ -123,6 +125,7 @@
  function test() {
    getScores(2);
  }
+
  // adds user and score to db.
  async function addUser(username, time, moves, score, gridID) {
 

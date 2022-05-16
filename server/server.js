@@ -85,6 +85,7 @@ async function handleRequest(calculations, queryString, headerString, response) 
     // print overall feedback
     console.log(`${headerString} request success: ${response_obj.success}`);
 };
+
 app.post('/api/scores', async (request, response) => {
 
     // custom logic needed to sort
