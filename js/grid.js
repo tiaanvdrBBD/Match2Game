@@ -70,11 +70,9 @@
    // async request -> server
    let response_obj = await fetch(url, options)
      .catch(e => {
-       // failure: set error message
+       // failure: wrap error
        return serverError();
      });
-
-
 
    // optional chaining catch used when query is unsucessful (like ERR_CONNECTION_REFUSED)
    try {
