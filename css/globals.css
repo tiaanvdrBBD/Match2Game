@@ -27,6 +27,20 @@ h1{
     margin: 0;
 }
 
+
+h2{
+    font-family: 'Chewy';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    margin: 0;
+}
+
+p{
+   font-weight: 700;
+   word-wrap: break-word;
+}
+
 label{
     font-family: 'Be Vietnam';
     font-style: normal;
@@ -117,15 +131,22 @@ input[type=text]{
 
 
 /** Media Queries **/
-@media (max-width: 620px)  { 
+@media (max-width: 1000px)  { 
+    #form,#howToInfo{
+        min-width: 65vw;
+    }
+}
+
+@media (max-width: 630px)  { 
     
     h1{
         font-size: 60px;
         text-align: center;
     }
 
-    #form{
+    #form, #howToInfo, #leaderboardContainer{
         border-radius: 0;
+        min-width: fit-content;
     }
 
     .buttonContainer{
