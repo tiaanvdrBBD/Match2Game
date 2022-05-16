@@ -29,13 +29,8 @@
     </section>
 
     <section class="buttonContainer">
-      <button class="button secondary-button"> How to play </button>
-      <a href="html/grid.html">
-        <button class="button secondary-button" onclick="logSession()">
-          <article class="iconButton">Start Game <i class='fas fa-arrow-right'></i>
-          </article>
-        </button>
-      </a>
+      <button class="button secondary-button" onclick="showHowToPlay()"> How to play </button>
+      <button class="button secondary-button"><article class="iconButton">Start Game <i class='fas fa-arrow-right'></i></article> </button>
     </section>
 
 
@@ -43,7 +38,29 @@
         class="btn_play">Play!</button></a>
   </section>
 
+  <section id="howToInfo" class="informationCard">
+    <h2>Game</h2>
+    <p>The object of the game is to collect all the matching pairs.</p>
+    
+    <h2>Playing Aqua Find</h2>
+    <p>Start by clicking on a card to turn it over.Go ahead and turn around s second card. If the cards match you got a pair!If they don't match, they will turn back over and you 
+    can select two cards again.
+    The game continues in this fashion until all the cards are played.</p>
+    
+    <h2>Winning the Game</h2>
+    <p>Once all the cards have been played and all the matching pairs 
+    are found, you win!he faster you get all the pairs and with the least amount of 
+    moves the higher you will go up in the FIsh Pond</p>
+    
+
+    <section class="buttonContainer">
+      <button class="button secondary-button" onclick="hideHowToPlay()">Back</button>
+    </section>
+
+  </section>
+
   <script src="js/app.js"></script>
+  <script src="js/index.js"></script>
 </body>
 
 </html>
