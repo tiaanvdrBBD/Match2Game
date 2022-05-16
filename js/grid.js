@@ -15,6 +15,10 @@
  var yAxis = 0;
  let timerID = -1;
 
+ function showGrid() {
+  populateGrid(sessionStorage.getItem("gridX"),sessionStorage.getItem("gridY"));
+}
+
  // when DOM rendered first time
  function init() {
 
@@ -67,15 +71,140 @@
      }
    };
 
+  if (!hasFlippedCard) {
+    //first click
+    hasFlippedCard = true;
+    firstCard = this;
+    return;
+  }
+  //second click
+  hasFlippedCard = false;
+  secondCard = this;
+
+  checkForMatch();
+
+  if (timerID == -1) {
+    // set unique ID to interval
+    timerID = setInterval(tick, 1000);
+  }
+  if (gameDone == 1) {
+    //stop running the interval
+    clearInterval(timerID);
+    // display score
+    showGongratulations();
+    document.getElementById("timerLabel").innerHTML = `You Won! Score: ${heuristic()}
+    Moves: ${successful + unsuccessful}`;
+    document.getElementById("vicoryMessage").innerHTML = `You Won! Score: ${heuristic()}
+    Moves: ${successful + unsuccessful}`;
+    // reset everything
+    hasFlippedCard = false;
+    lockBoard = false;
+    firstCard, secondCard;
+    gameStart = 0;
+    gameDone = 0; //sit next to line gameStart
+    maxTime = 5;
+    timeTaken = 0;
+    countDownDate = 0;
+    successful = 0;
+    unsuccessful = 0;
+    xAxis = 0;
+    yAxis = 0;
+    timerID = -1;
+  } else {
+    hideGongratulations();
+    console.log("Hide");
+  }
+
+};
+
+function checkForMatch() {
+  let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
+
+  if (isMatch) {
+    successful++;
+    disableCards();
+    if (successful == (xAxis * yAxis / 2)) {
+      gameDone = 1;
+    }
+  } else {
+    unsuccessful++;
+    unflipCards();
+  }
+  var perfectGame = xAxis * yAxis;
+  // If you've made each successfull move, you must've finished
+  if (successful == perfectGame / 2) {
+    gameDone = 1;
+  }
+  console.log(heuristic());
+};
+
+/* when other cards picked*/
+function disableCards() {
+  firstCard.removeEventListener('click', flipCard);
+  secondCard.removeEventListener('click', flipCard);
+  resetBoard();
+};
+
+// hide picture
+function unflipCards() {
+  lockBoard = true;
+
+  setTimeout(() => {
+    firstCard.classList.remove('flip');
+    secondCard.classList.remove('flip');
+    resetBoard();
+  }, 1500);
+};
+
+function resetBoard() {
+  hideGongratulations();
+  [hasFlippedCard, lockBoard] = [false, false];
+  [firstCard, secondCard] = [null, null];
+}
+
+//card layouts
+(function shuffle() {
+  cards.forEach(card => {
+    let randomPos = Math.floor(Math.random() * 12);
+    card.style.order = randomPos;
+  });
+})();
+
+const cardImages = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50'];
+
+function randomCardImages(gridSizeX, gridSizeY) {
+  hideGongratulations();
+  let randomSubset = cardImages.map(img => [img, Math.random()]).sort((a, b) => {
+    return a[1] < b[1] ? -1 : 1;
+  }).slice(0, gridSizeX * gridSizeY / 2).map(a => a[0]);
+  return [...randomSubset, ...randomSubset].sort(() => Math.random() - 0.5);
+}
+
+function freePlayShow() {
+  document.getElementById('freePlayInputSection').style.display = 'flex';
+}
+
+function freePlayGenerate() {
+  document.getElementById('freePlayInputSection').style.display = 'none';
+  populateGrid(document.getElementById('freePlayGridInput1').value, document.getElementById('freePlayGridInput2').value);
+}
+
+
+function populateGrid(gridSizeX, gridSizeY) {
+  hideGongratulations();
+  xAxis = gridSizeX;
+  yAxis = gridSizeY;
+  gameStart = 1;
+  const grid = document.getElementsByClassName("memory-game")[0];
+  grid.replaceChildren();
+  let imageCount = 0;
+  let randomSubsetWithDuplicates = randomCardImages(gridSizeX, gridSizeY);
    // async request -> server
    let response_obj = await fetch(url, options)
      .catch(e => {
        // failure: set error message
        return serverError();
      });
-
-
-
    // optional chaining catch used when query is unsucessful (like ERR_CONNECTION_REFUSED)
    try {
      response_obj = await response_obj.json();
@@ -283,8 +412,6 @@
      card.style.order = randomPos;
    });
  })();
-
- const cardImages = ['angular.svg', 'aurelia.svg', 'backbone.svg', 'ember.svg', 'js-badge.svg', 'react.svg', 'vue.svg', 'js-log.png'];
 
  function randomCardImages(gridSizeX, gridSizeY) {
    let randomSubset = cardImages.map(img => [img, Math.random()]).sort((a, b) => {
