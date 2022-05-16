@@ -169,7 +169,7 @@ function freePlayGenerate() {
 
 function populateGrid(gridSizeX, gridSizeY) {
   // reset timer
-  resetTimer('5m 00s');
+  resetTimer('5m 0s');
   xAxis = gridSizeX;
   yAxis = gridSizeY;
   gameStart = 1;

@@ -16,10 +16,6 @@
     display: flex;
 }
 
-.leaderboard {
-    flex: 1;
-    margin: auto;
-}
 
 .memory-game {
     display: grid;
