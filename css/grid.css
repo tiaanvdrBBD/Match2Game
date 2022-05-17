@@ -12,19 +12,23 @@
     margin-top: 20px;
 }
 
+
+.memory-game>article {
+    padding: 0 10px;
+    transform: scale(1);
+    transform-style: preserve-3d;
+    transition: transform .5s;
+    width: calc(25% - 10px);
+    height: calc(33.33% - 10px);
+} 
+
 .memory-game {
     display: grid;
     grid-template: 23% / auto auto auto auto;
     row-gap: 1em;
     padding: 2px;
-}
-
-.memory-game>article {
-    padding: 20px 0;
-    transform: scale(1);
-    transform-style: preserve-3d;
-    transition: transform .5s;
-}
+    margin: auto;
+} 
 
 .memory-card:active {
     transform: scale(.97);
@@ -33,7 +37,7 @@
 
 .memory-card.flip {
     transform: rotateY(180deg);
-}
+} 
 
 .front-face,
 .back-face {
@@ -81,15 +85,7 @@
     flex-direction: column;
 }
 
-#timerLabel {
-    flex: 1;
-    font-size: 20px;
-    font-weight: bold;
-    font-family: 'Courier New', Courier, monospace;
-    color: rgb(0, 0, 0);
-    width: fit-content;
-    margin: auto;
-}
+
 
 #timer-button {
     flex: 1;
@@ -104,4 +100,37 @@
 
 .memory-card:hover {
     cursor: pointer;
+}
+
+.gameSectionDisplay {
+    display: flex;
+    flex-direction: row;
+}
+
+#time {
+  margin-left: 3em;
+  color: red;
+}
+
+#moves {
+    color: red;
+}
+
+.gameSection {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2em;
+    margin-bottom: 0em;
+}
+
+.gameInfo {
+    margin-right: 8em;
+}
+
+.gameSection {
+    margin-left: 3em;
+}
+
+.buttonContainer {
+    margin-left: 3em;
 }

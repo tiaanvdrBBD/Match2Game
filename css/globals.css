@@ -36,6 +36,15 @@ h2{
     margin: 0;
 }
 
+h3{
+    font-family: 'Be Vietnam'; 
+    font-style: normal;
+    font-weight: 800;
+    font-size: 25px;
+    margin: 0;
+}
+
+
 p{
    font-weight: 700;
    word-wrap: break-word;
@@ -123,6 +132,25 @@ input[type=text]{
     flex-wrap: wrap;
 }
 
+.gridStats {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    flex-wrap: wrap;
+    font-family: 'Be Vietnam';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 35px;
+}
+
+.gridContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+
 .iconButton{
     flex-direction: row;
 }
@@ -155,6 +183,10 @@ input[type=text]{
     }
 
     .buttonContainer{
+        justify-content: center;
+    }
+
+    .gridContainer{
         justify-content: center;
     }
 
