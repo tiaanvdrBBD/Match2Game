@@ -49,14 +49,12 @@ function serverError() {
 
 const tableHeaders = ['rank', 'username', 'moves', 'time_', 'score'];
 
+// TODO: remove static data below
 let activePlayerName = 'JJJ';
 let activePlayerMoves = 12;
 let activePlayerTime = 33;
-let activePlayerScore = 10481;
+let activePlayerScore = 36500;
 
-function between(x, min, max) {
-    return x >= min && x <= max;
-}
 let previousY = 0;
 let currentY = 0;
 const observer = new IntersectionObserver(entries => {
@@ -91,6 +89,15 @@ const observer = new IntersectionObserver(entries => {
     threshold: [0.5]
 });
 
+// TODO: remove static data below
+let prevRank = 100; // can be null
+function giveRankLabel(curRank) {
+
+    const updatedRank = prevRank - curRank;
+
+    return updatedRank;
+}
+
 async function populateLeaderboard() {
     // get top 100 scores for a grid
     let responseBody = await getScores(1);
@@ -119,9 +126,11 @@ async function populateLeaderboard() {
     const tableBody = document.getElementById("leaderBoardResults");
 
     let passedHighest = false;
+
     leaderboardData.data.forEach((leader, index) => {
 
         let leaderRow = document.createElement('tr');
+
 
         // add observer
         observer.observe(leaderRow);
@@ -130,7 +139,7 @@ async function populateLeaderboard() {
 
             let leaderColumn = document.createElement('td');
 
-            // cur player
+            // cur player normal row
             if (leader.username === activePlayerName) {
                 leaderRow.setAttribute('class', 'activeFontColor');
             } else {
@@ -141,14 +150,38 @@ async function populateLeaderboard() {
                 }
             }
 
-            // other players
+            // cur player normal row rank
             if (tableProperty === 'rank') {
-                leaderColumn.innerHTML = index + 1;
+                if (leader.username === activePlayerName) {
+                    // create table with arrow add to column
+                    let scoreCol = document.createElement('td');
+                    scoreCol.innerHTML = ` ${index + 1} `;
+
+                    let arrow = document.createElement('li');
+                    arrow.setAttribute('class', 'fas fa-arrow-up');
+                    arrow.style.color = 'green';
+
+                    let arrowCol = document.createElement('td');
+
+                    arrowCol.innerHTML = `  ${giveRankLabel(index + 1)} `;
+                    arrowCol.appendChild(arrow);
+
+                    leaderRow.style.color = 'green';
+
+                    leaderColumn.appendChild(scoreCol);
+                    leaderColumn.appendChild(arrowCol);
+                    leaderColumn.setAttribute('class', 'td-rank');
+
+                    //    leaderColumn.innerHTML = `${scoreCol.innerHTML} ${arrowCol.innerHTML}`;
+                } else {
+                    leaderColumn.innerHTML = index + 1;
+                }
+
             } else {
                 leaderColumn.innerHTML = leader[tableProperty];
             }
 
-            // cur player
+            // cur player header and footer
             if (leader.username === activePlayerName) {
                 let tableFoot = document.getElementById('activePlayerResults-footer');
                 let tableHead = document.getElementById('activePlayerResults-header');
@@ -169,8 +202,8 @@ async function populateLeaderboard() {
                     footerData.setAttribute('class', 'hideColumn');
                     headerData.setAttribute('class', 'hideColumn');
                 }
-
                 tableFoot.appendChild(footerData);
+
                 tableHead.appendChild(headerData);
             }
 

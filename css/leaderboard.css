@@ -7,7 +7,7 @@
 }
 
 .activeFontColor {
-    color: var(--secondary);
+    color: red;
 }
 
 tbody {
@@ -18,17 +18,29 @@ tbody {
     padding-right: 2em;
 }
 
+.td-rank {
+    display: flex;
+    flex-direction: row;
+    margin-left: 39%;
+    gap: 1.3em;
+}
+
+.td-rank td {
+    display: flex;
+    flex-direction: row;
+}
+
 thead,
 tbody tr,
 tfoot {
     display: table;
     table-layout: fixed;
     width: 80vw;
-    width: 100%;
 }
 
 tfoot {
-    color: var(--secondary);
+    font-family: 'Be Vietnam';
+    height: fit-content;
 }
 
 thead {
@@ -46,8 +58,9 @@ td {
     text-align: center;
 }
 
-#activePlayerResults-footer, #activePlayerResults-header  {
-    color: red;
+#activePlayerResults-footer,
+#activePlayerResults-header {
+    color: #2C0088;
     font-family: 'Be Vietnam';
 }
 
@@ -86,6 +99,14 @@ td {
         display: none;
     }
 
+    .td-rank {
+        display: flex;
+        flex-direction: row;
+        margin-left: 'none';
+        margin: 'none';
+        gap: 0em;
+    }
+
     #leaderboardContainer {
         width: 50vw;
     }
@@ -94,9 +115,5 @@ td {
     tbody tr,
     tfoot {
         width: 50vw;
-    }
-
-    td {
-        margin: 1em;
     }
 }
