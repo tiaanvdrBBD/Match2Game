@@ -5,7 +5,7 @@ let lockBoard = false;
 let firstCard, secondCard;
 let gameStart = 0;
 let gameDone = 0; //sit next to line gameStart
-
+let moves = 0;
 var maxTime = 5;
 var timeTaken = 0;
 var countDownDate = 0;
@@ -13,12 +13,15 @@ var successful = 0;
 var unsuccessful = 0;
 var xAxis = 0;
 var yAxis = 0;
+let pause = false;  //0 meaning it's not paused
+let timeLeft = 0;
+
 // added
 let timerID = -1;
 
 
 function showGrid() {
-  populateGrid(sessionStorage.getItem("gridX"),sessionStorage.getItem("gridY"));
+  populateGrid(sessionStorage.getItem("gridX"), sessionStorage.getItem("gridY"));
 }
 
 function playAgain() {
@@ -32,35 +35,57 @@ function heuristic() {
 }
 
 function tick() {
-  console.log('inside tick');
-  var now = new Date().getTime();
-  var timeLeft = countDownDate - now;
-  var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+  
+  if (!pause) {
+    console.log('inside tick');
+    
+    timeLeft = timeLeft - 1000;
 
-  // Display timer (id="timer")
-  document.getElementById("timerLabel").innerHTML = minutes + "m " + seconds + "s ";
+    var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-  var minutesLeft = maxTime - minutes;
-  var secondsLeft = 60 - seconds;
-  timeTaken = minutesLeft * 60 + secondsLeft;
-  // time up
-  if (timeLeft < 0) {
-    clearInterval(timerID);
-    gameDone = 1;
-    //display timer
-    document.getElementById("timerLabel").innerHTML = "EXPIRED, number of moves: " + (successful + unsuccessful).toString();
+    let m = minutes > 0 ? (minutes < 10 ? "0" : "") + minutes + ":" : "00:";
+    let s = seconds > 0 ? (seconds < 10 ? "0" : "") + seconds : "00";
+    // Display timer (id="timer")
+    document.getElementById("timerLabel").innerHTML = m + s;
+
+    var minutesLeft = maxTime - minutes;
+    var secondsLeft = 60 - seconds;
+    timeTaken = minutesLeft * 60 + secondsLeft;
+    // time up
+    if (timeLeft < 0) {
+      clearInterval(timerID);
+      gameDone = 1;
+      //display timer
+      document.getElementById("timerLabel").innerHTML = "EXPIRED, number of moves: " + (moves).toString();
+    }
+
   }
+
+}
+function timerr() {
+  pause = !pause;
+  
+  //curr = !curr;
+  //then = new Date().getTime();
 }
 // function called when card clicked (shows picture)
 function flipCard() {
   if (lockBoard) return;
+  if (pause) return;
   if (gameStart == 1) {
     gameStart = 0;
-    countDownDate = new Date();
-    countDownDate.setMinutes(countDownDate.getMinutes() + maxTime);
-    countDownDate = new Date(countDownDate);
+    timeLeft = 300000;
+
+    if (timerID == -1) {
+      // set unique ID to interval 
+      timerID = setInterval(tick, 1000);
+    }
   }
+
+  moves++;
+  document.getElementById("movesLabel").innerHTML = "Moves: " + moves;
+
   if (this === firstCard) return;
 
   this.classList.add('flip');
@@ -79,6 +104,7 @@ function flipCard() {
 
   if (timerID == -1) {
     // set unique ID to interval
+    //timeLeft = countDownDate - now;
     timerID = setInterval(tick, 1000);
   }
   if (gameDone == 1) {
@@ -104,6 +130,19 @@ function flipCard() {
   }
 
 };
+
+function resetTimer(timerString) {
+
+  // set timer text
+  document.getElementById("timerLabel").innerHTML = timerString;
+  document.getElementById("movesLabel").innerHTML = "Moves: 0";
+  //stop running the interval
+  if (timerID !== -1) {
+    clearInterval(timerID);
+    timerID = -1;
+  }
+  reset();
+}
 
 function checkForMatch() {
   let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
@@ -157,7 +196,7 @@ function resetBoard() {
   });
 })();
 
-const cardImages = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50'];
+const cardImages = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50'];
 
 function randomCardImages(gridSizeX, gridSizeY) {
   let randomSubset = cardImages.map(img => [img, Math.random()]).sort((a, b) => {
@@ -175,8 +214,23 @@ function freePlayGenerate() {
   populateGrid(document.getElementById('freePlayGridInput1').value, document.getElementById('freePlayGridInput2').value);
 }
 
+function playpause() {
+  pause = !pause;
+  let button = document.getElementById("playpausebutton");
+  
+  if (button.src.match("../img/pause.png")){
+      button.style.transform  = "rotate(360deg)";
+      button.src =  "../img/play.png";
+  } else {
+    button.style.transform = "rotate(-360deg)";
+    button.src = "../img/pause.png";
+  }
+}
+
+
 
 function populateGrid(gridSizeX, gridSizeY) {
+  resetTimer('05:00');
   xAxis = gridSizeX;
   yAxis = gridSizeY;
   gameStart = 1;
@@ -189,7 +243,7 @@ function populateGrid(gridSizeX, gridSizeY) {
     let imageSource = randomSubsetWithDuplicates[imageCount++];
 
     let card = document.createElement('article');
-    card.setAttribute("class", "memory-card grid"+ gridSizeX);
+    card.setAttribute("class", "memory-card grid" + gridSizeX);
     card.setAttribute('data-framework', imageSource);
 
     let cardImage1 = document.createElement('img');
@@ -212,4 +266,20 @@ function populateGrid(gridSizeX, gridSizeY) {
 
   const columnSpread = '1fr ';
   grid.style.gridTemplateColumns = `${columnSpread.repeat(gridSizeX)}`;
+}
+
+function reset() {
+  hasFlippedCard = false;
+  lockBoard = false;
+  firstCard, secondCard;
+  gameStart = 0;
+  gameDone = 0; //sit next to line gameStart
+  maxTime = 5;
+  timeTaken = 0;
+  countDownDate = 0;
+  successful = 0;
+  unsuccessful = 0;
+  xAxis = 0;
+  yAxis = 0;
+  moves = 0;
 }
