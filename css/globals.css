@@ -1,15 +1,15 @@
 :root {
     --primary: #2C0088;
     --secondary: #F4485D;
-    --app-backround: #FFFFFF ; 
+    --app-backround: #FFFFFF;
 }
 
-html{
+html {
     height: 100%;
 }
 
-body{
-    font-family: 'Be Vietnam'; 
+body {
+    font-family: 'Be Vietnam';
     color: var(--primary);
     display: flex;
     align-items: center;
@@ -19,7 +19,7 @@ body{
     background-color: powderblue;
 }
 
-h1{
+h1 {
     font-family: 'Chewy';
     font-style: normal;
     font-weight: 400;
@@ -27,8 +27,7 @@ h1{
     margin: 0;
 }
 
-
-h2{
+h2 {
     font-family: 'Chewy';
     font-style: normal;
     font-weight: 400;
@@ -36,20 +35,20 @@ h2{
     margin: 0;
 }
 
-p{
-   font-weight: 700;
-   word-wrap: break-word;
+p {
+    font-weight: 700;
+    word-wrap: break-word;
 }
 
-label{
+label {
     font-family: 'Be Vietnam';
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
-    line-height: 35px; 
+    line-height: 35px;
 }
 
-.informationCard{
+.informationCard {
     display: flex;
     flex-direction: column;
     justify-items: center;
@@ -61,7 +60,7 @@ label{
     z-index: 2;
 }
 
-input[type=text]{
+input[type=text] {
     box-sizing: border-box;
     padding: 0.8em 1.5em;
     border: 1px solid var(--primary);
@@ -73,7 +72,7 @@ input[type=text]{
 }
 
 /** Buttons styling  **/
-.button{
+.button {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -85,92 +84,87 @@ input[type=text]{
     height: 3em;
 }
 
-.button:hover{
+.button:hover {
     cursor: pointer;
     border-width: 2px;
 }
 
-.button:hover i{
+.button:hover i {
     transition: 0.4s ease-in-out;
-    transform: translateX(15px) ;
+    transform: translateX(15px);
 }
 
-.primary-button{
+.primary-button {
     background-color: var(--app-backround);
     color: var(--primary);
     border: 1px solid var(--primary);
-    width: 5.5em;
+    padding-left: 2em;
+    padding-right: 2em;
 }
 
-.secondary-button{
+.secondary-button {
     background-color: var(--primary);
     color: var(--app-backround);
     border: 1px solid var(--primary);
-    width: 11em;
+    padding-left: 2em;
+    padding-right: 2em;
 }
 
-.tertiary-button{
+.tertiary-button {
     background-color: var(--app-backround);
     color: var(--secondary);
     border: 1px solid var(--secondary);
     width: 5.5em;
 }
 
-.buttonContainer{
+.buttonContainer {
     display: flex;
     flex-direction: row;
     gap: 1em;
     flex-wrap: wrap;
 }
 
-.iconButton{
+.iconButton {
     flex-direction: row;
 }
 
-
-
-
-
 /** Media Queries **/
-@media (max-width: 1000px)  { 
-    #form,#howToInfo{
+@media (max-width: 1000px) {
+
+    #form,
+    #howToInfo {
         min-width: 65vw;
     }
 
-    .secondary-button{
+    .secondary-button {
         width: 65vw;
     }
 }
 
-@media (max-width: 630px)  { 
-    
-    h1{
+@media (max-width: 630px) {
+
+    h1 {
         font-size: 60px;
         text-align: center;
     }
 
-    #form, #howToInfo, #leaderboardContainer{
-        border-radius: 0;
-        min-width: fit-content;
-    }
-
-    .buttonContainer{
+    .buttonContainer {
         justify-content: center;
     }
 
-    .primary-button{
+    .primary-button {
         width: 7em;
     }
 
-    .secondary-button{
+    .secondary-button {
         width: 80vw;
     }
 
 }
 
 
-@media (max-width: 600px)  { 
-    input[type=text]{
+@media (max-width: 600px) {
+    input[type=text] {
         font-size: 15px;
     }
 }
@@ -198,32 +192,37 @@ div .dot {
     top: 20%;
     right: 20%;
 }
-  
+
 div:nth-child(1) {
     top: 20%;
     left: 20%;
     animation: animate 8s linear infinite;
 }
+
 div:nth-child(2) {
     top: 60%;
     left: 80%;
     animation: animate 10s linear infinite;
 }
+
 div:nth-child(3) {
     top: 40%;
     left: 40%;
     animation: animate 3s linear infinite;
 }
+
 div:nth-child(4) {
     top: 90%;
     left: 30%;
     animation: animate 9s linear infinite;
 }
+
 div:nth-child(5) {
     top: 90%;
     left: 10%;
     animation: animate 9s linear infinite;
 }
+
 div:nth-child(6) {
     top: 30%;
     left: 60%;
@@ -235,7 +234,7 @@ div:nth-child(7) {
     left: 85%;
     animation: animate 8s linear infinite;
 }
- 
+
 div:nth-child(8) {
     top: 75%;
     left: 60%;
@@ -292,6 +291,11 @@ div:nth-child(16) {
 }
 
 @keyframes animate {
-    0% { transform: scale(0) translateY(0) rotate(70deg); }
-    100% {  transform: scale(1.3) translateY(-100px) rotate(360deg);}
+    0% {
+        transform: scale(0) translateY(0) rotate(70deg);
+    }
+
+    100% {
+        transform: scale(1.3) translateY(-100px) rotate(360deg);
+    }
 }

@@ -12,6 +12,10 @@
     margin-top: 20px;
 }
 
+#btn-start-game {
+    display: none;
+}
+
 .memory-game {
     display: grid;
     grid-template: 23% / auto auto auto auto;
