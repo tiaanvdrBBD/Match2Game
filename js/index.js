@@ -11,3 +11,8 @@ function hideHowToPlay(){
     doc.getElementById("howToInfo").style.display = 'none';
 
 }
+
+
+window.addEventListener('load', (event) => {
+    document.getElementById("appNavbar").innerHTML =  navbar() ;
+});

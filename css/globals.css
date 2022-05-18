@@ -11,13 +11,60 @@ html{
 body{
     font-family: 'Be Vietnam'; 
     color: var(--primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100%;
     margin: 0;
     background-color: powderblue;
 }
+
+.pageContent{
+    display: flex;
+    min-height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#appNavbar{
+    background-color: var(--primary);
+    padding: 0 2em;
+    margin-bottom: 3em;
+    color: white;
+    display: block;
+}
+
+#appNavbar #horizontalBar{
+  list-style-type: none;
+  margin: 0;
+  padding: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#appNavbar ul li{
+    display: inline;
+}
+
+#dropNavButtons{
+    display: none ;
+}
+
+#verticalBar{
+    display: none ;
+    background-color: white;
+    margin:0;
+    padding:0;
+    flex-direction: column;
+}
+
+#verticalBar li{
+  cursor: pointer;
+  color:var(--secondary);
+  padding: 0.5em;
+}
+
+#verticalBar li:hover{
+    border: solid 1px var(--secondary);
+}
+
 
 h1{
     font-family: 'Chewy';
@@ -114,6 +161,11 @@ input[type=text]{
     color: var(--secondary);
     border: 1px solid var(--secondary);
     width: 5.5em;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 15px;
+    height: 4em;
+    cursor:pointer;
 }
 
 .buttonContainer{
@@ -172,6 +224,28 @@ input[type=text]{
 @media (max-width: 600px)  { 
     input[type=text]{
         font-size: 15px;
+    }
+}
+
+@media (max-width: 500px)  { 
+    #navButtons{
+        display: none;
+    }
+
+    #dropNavButtons{
+        display: block ;
+    }
+
+    #horizontalBar{
+        margin: 1em ;
+    }
+
+    #verticalBar li{
+        display: none ;
+    }
+
+    #appNavbar{
+        padding: 0;
     }
 }
 
