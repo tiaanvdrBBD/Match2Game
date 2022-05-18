@@ -189,10 +189,8 @@ function populateGrid(gridSizeX, gridSizeY) {
     let imageSource = randomSubsetWithDuplicates[imageCount++];
 
     let card = document.createElement('article');
-    card.setAttribute("class", "memory-card");
+    card.setAttribute("class", "memory-card grid"+ gridSizeX);
     card.setAttribute('data-framework', imageSource);
-    card.style.width = `${100/gridSizeX - 2}vw`;
-    card.style.height = `${gridSizeY*2}vw`;
 
     let cardImage1 = document.createElement('img');
     cardImage1.setAttribute("class", "front-face");
@@ -212,6 +210,6 @@ function populateGrid(gridSizeX, gridSizeY) {
     grid.appendChild(card);
   }
 
-  const columnSpread = 'auto ';
-  grid.style.gridTemplate = `${100/gridSizeY}% / ${columnSpread.repeat(gridSizeX)}`;
+  const columnSpread = '1fr ';
+  grid.style.gridTemplateColumns = `${columnSpread.repeat(gridSizeX)}`;
 }
