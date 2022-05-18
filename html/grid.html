@@ -14,21 +14,30 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
   <script src="../js/grid.js"></script>
+  
 </head>
 
 <body onload="showGrid()">
 
   <ul class="navBar">
     <li  class="items"><a class="active" href="../index.html">Home</a></li>
-    <section id="timer-container">
-      <p id="timerLabel"></p>
-      <button id="timer-button" onclick="playAgain()" hidden="true">Play again</button>
-    </section>
   </ul>
 
 
-
-  <section class="memory-game"></section>
+  <section class="gridContainer">
+    <section class="topOffGridContainer">
+      <section class="movesAndTimerContainer">
+        <p id="movesLabel" class="gridStats">Moves: 0</p>
+        <p id="timerLabel" class="gridStats">05:00</p>
+      </section>
+      <p class="gridStats"><img alt="" src="../img/pause.png" 
+        id="playpausebutton" onclick="playpause()"/></p>
+      
+        
+    </section>
+    <section class="memory-game"></section>
+  </section>
+  
 
 </body>
 
