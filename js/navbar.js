@@ -8,7 +8,7 @@ function navbar(){
         </section>
         <section id="navButtons">
           <li>
-            <a href="../index.html"><button class="tertiary-button">Pond Size</button></a>
+            <a onclick="navHome()"><button class="tertiary-button">Pond Size</button></a>
           </li>
           <li>
            <a href="../html/leaderboard.html"><button class="tertiary-button">The Fish Pond</button>
@@ -22,16 +22,26 @@ function navbar(){
         </section>
       </ul>
       <ul id="verticalBar">
-          <li>Pond Size</li>
-          <li>The Fish Pond</li>
-          <li>How to play?</li>
+          <li>
+            <a href="navHome()">Pond Size</a>
+          </li>
+          <li>
+            <a href="../html/leaderboard.html">The Fish Pond</a>
+          </li>
+          <li>
+            <a onclick="navHTP()">How to play?</a>
+          </li>
       </ul>
     `
 }
 
 function navHTP() {
-  sessionStorage.setItem("howToPlay", true);
+  sessionStorage.setItem("howToPlay", 'true');
+  window.location.href = "../index.html";
+}
 
+function navHome() {
+  sessionStorage.setItem("howToPlay", 'false');
   window.location.href = "../index.html";
 }
 
@@ -47,6 +57,5 @@ function toggleDropMenu(){
       elementSelected.style.display = 'flex';
     }
   }
-
 
 }
