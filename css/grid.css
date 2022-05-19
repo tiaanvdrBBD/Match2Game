@@ -12,6 +12,16 @@
     margin-top: 20px;
 }
 
+
+.memory-game>article {
+    padding: 0 10px;
+    transform: scale(1);
+    transform-style: preserve-3d;
+    transition: transform .5s;
+    width: calc(25% - 10px);
+    height: calc(33.33% - 10px);
+} 
+
 .memory-game {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -46,7 +56,7 @@
 
 .memory-card.flip {
     transform: rotateY(180deg);
-}
+} 
 
 .front-face,
 .back-face {
@@ -94,6 +104,8 @@
     flex-direction: column;
 }
 
+
+
 #timer-button {
     flex: 1;
     width: fit-content;
@@ -109,9 +121,41 @@
     cursor: pointer;
 }
 
+.gameSectionDisplay {
+    display: flex;
+    flex-direction: row;
+}
 
-  /** Media Queries **/
-  @media (max-width: 1000px)  { 
+#time {
+  margin-left: 3em;
+  color: red;
+}
+
+#moves {
+    color: red;
+}
+
+.gameSection {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2em;
+    margin-bottom: 0em;
+}
+
+.gameInfo {
+    margin-right: 8em;
+}
+
+.gameSection {
+    margin-left: 3em;
+}
+
+.buttonContainer {
+    margin-left: 3em;
+}
+
+/** Media Queries **/
+@media (max-width: 1000px)  { 
     .grid4{
         width: 14vw;  
         height: 14vw;

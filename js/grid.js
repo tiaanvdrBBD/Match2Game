@@ -4,7 +4,10 @@ let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
 let gameStart = 0;
-let gameDone = 0; //sit next to line gameStart
+// 0 - Game not over
+// 1 - Game won
+// 2 - No time left
+let gameDone = 0;
 let moves = 0;
 let maxTime = 5;
 let timeTaken = 0;
@@ -18,7 +21,8 @@ let multiplier = 0;
 
 // added
 let timerID = -1;
-
+var minutes = 0;
+var seconds = 0;
 
 function showGrid() {
   populateGrid(sessionStorage.getItem("gridX"), sessionStorage.getItem("gridY"));
@@ -70,6 +74,10 @@ function flipCard() {
   if (pause) return;
   if (gameStart == 1) {
     gameStart = 0;
+    countDownDate = new Date();
+    countDownDate.setMinutes(countDownDate.getMinutes() + maxTime);
+    countDownDate.setSeconds(countDownDate.getSeconds() + 1);
+    countDownDate = new Date(countDownDate);
     timeLeft = 300000;
 
     if (timerID == -1) {
@@ -102,11 +110,14 @@ function flipCard() {
     timerID = setInterval(tick, 1000);
   }
   if (gameDone == 1) {
-    //stop running the interval
     clearInterval(timerID);
-    // display score
-    document.getElementById("timerLabel").innerHTML = `Complete! Score: ${evaluation()}
-    Moves: ${successful + unsuccessful}`;
+    showGameOver();
+    document.getElementById("heading").innerHTML = `Congratulations!`;
+    document.getElementById("gameOverMessage").innerHTML = `You made it out the fish pond.`;
+    document.getElementById("score").innerHTML = `${heuristic()} - Vicky `;
+    document.getElementById("moves").innerHTML = `Moves: ${successful + unsuccessful}`;
+    document.getElementById("time").innerHTML = `Time: ${minutes + "m " + seconds + "s"}`;
+    document.getElementById("gameOverImg").src = `../img/success.svg`;
     // reset everything
     hasFlippedCard = false;
     lockBoard = false;
@@ -119,10 +130,28 @@ function flipCard() {
     unsuccessful = 0;
     xAxis = 0;
     yAxis = 0;
+    moves = 0;
+    timerID = -1;
+  } else if (gameDone == 2) {
+    showGameOver();
+    document.getElementById("heading").innerHTML = `Oops!`;
+    document.getElementById("gameOverMessage").innerHTML = `You were caught...`;
+    document.getElementById("moves").innerHTML = `Moves: ${successful + unsuccessful}`;
+    document.getElementById("time").innerHTML = `Time: ${minutes + "m " + seconds + "s"}`;
+    document.getElementById("gameOverImg").src = `../img/unsuccess.svg`;
+  } else {
+    hideGameOver();
+    console.log("Hide");
+  }
+};
+
+function resetTimer(timerString) {
+  if (timerID !== -1) {
+    clearInterval(timerID);
     timerID = -1;
   }
-
-};
+  reset();
+}
 
 function resetTimer(timerString) {
 
@@ -226,6 +255,7 @@ function populateGrid(gridSizeX, gridSizeY) {
   resetTimer('05:00');
   xAxis = gridSizeX;
   yAxis = gridSizeY;
+  console.log(xAxis + "     " + yAxis);
   multiplier = (xAxis == 4) ? 150 : ((xAxis == 6) ? 200 : 250);
   gameStart = 1;
   const grid = document.getElementsByClassName("memory-game")[0];

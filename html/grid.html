@@ -1,44 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Memory Tiles</title>
 
-<head>
-  <meta charset="utf-8">
-  <title>Memory Tiles</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/globals.css" />
+    <link rel="stylesheet" href="../css/grid.css" />
+    <link rel="stylesheet" href="../css/navBar.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Chewy"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Be Vietnam"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+      rel="stylesheet"
+    />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/globals.css">
-  <link rel="stylesheet" href="../css/grid.css">
-  <link rel="stylesheet" href="../css/navBar.css">
-  <link href='https://fonts.googleapis.com/css?family=Chewy' rel='stylesheet'>
-  <link href='https://fonts.googleapis.com/css?family=Be Vietnam' rel='stylesheet'>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-
-  <script src="../js/grid.js"></script>
-  
-</head>
-
-<body onload="showGrid()">
-
-  <ul class="navBar">
-    <li  class="items"><a class="active" href="../index.html">Home</a></li>
-  </ul>
+    <script src="../js/grid.js"></script>
+    <script src="../js/index.js"></script>
+  </head>
 
 
-  <section class="gridContainer">
-    <section class="topOffGridContainer">
-      <section class="movesAndTimerContainer">
-        <p id="movesLabel" class="gridStats">Moves: 0</p>
-        <p id="timerLabel" class="gridStats">05:00</p>
+  <body onload="showGrid()">
+    <section id="grid">
+      <ul class="navBar">
+        <li class="items"><a class="active" href="../index.html">Home</a></li>
+      </ul>
+
+      <section class="gridContainer">
+        <section class="topOffGridContainer">
+          <section class="movesAndTimerContainer">
+            <p id="movesLabel" class="gridStats">Moves: 0</p>
+            <p id="timerLabel" class="gridStats">05:00</p>
+          </section>
+          <p class="gridStats"><img alt="" src="../img/pause.png" 
+            id="playpausebutton" onclick="playpause()"/></p>
+          
+            
+        </section>
+        <section class="memory-game"></section>
       </section>
-      <p class="gridStats"><img alt="" src="../img/pause.png" 
-        id="playpausebutton" onclick="playpause()"/></p>
       
-        
+
+    <section id="gameOver" class="informationCard" style="display: false">
+      
+      <section class="gameSection">
+        <section class="gameInfo">
+          <h1 id="heading">Congratulations!</h1>
+          <p id="gameOverMessage">You escaped from the pond</p>
+          <h3 id="score">32 - Vicky</h2>
+          <section class="gameSectionDisplay">
+            <p id="moves">Moves: 20</p>
+            <p id="time">Time: 10:00</p>
+          </section>
+        </section>
+        <img src="../img/success.svg" alt="Game Over image" id="gameOverImg"/>
+      </section>
+      
+      <section class="buttonContainer">
+        <button class="button secondary-button">View the Fish Pond</button>
+        <button class="button secondary-button">
+          <article class="iconButton" onclick="hideGameOver()">
+            Play Again <i class="fas fa-arrow-right"></i>
+          </article>
+        </button>
+      </section>
     </section>
-    <section class="memory-game"></section>
-  </section>
-  
-
-</body>
-
+  </body>
 </html>
+
