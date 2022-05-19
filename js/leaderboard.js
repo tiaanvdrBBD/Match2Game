@@ -204,7 +204,9 @@ async function populateLeaderboard() {
         curPlayerData: true
     };
 
-    responseBody.data.push(curPlayerData);
+    if (activePlayerTime !== null) {
+        responseBody.data.push(curPlayerData);
+    }
 
     // sort descending
     let leaderboardData = responseBody.data.sort((a, b) => {
@@ -234,6 +236,7 @@ async function populateLeaderboard() {
     let passedHighest = false;
 
     leaderboardData.data.forEach((leader, index) => {
+
 
         let leaderRow = document.createElement('tr');
 
@@ -347,10 +350,8 @@ async function populateLeaderboard() {
     // write new score if top 100
     if (curRank !== -1) {
         // (gridID, username, time, moves, score) 
-        //  let updateInfo = await updateScores(1, activePlayerName, activePlayerTime, activePlayerMoves, activePlayerScore);
-        //  console.log(updateInfo);
+        updateScores(1, activePlayerName, activePlayerTime, activePlayerMoves, activePlayerScore);
     }
-
 }
 
 window.addEventListener('load', (event) => {
