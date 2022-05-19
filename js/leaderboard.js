@@ -33,7 +33,7 @@ async function getAllGridScores(gridID) {
 }
 
 async function updateScores(gridID, username, time, moves, score) {
-    let userInfo = await sendRequest(`http://localhost:3000/api/score/add?username=${username}&time=${time}&moves=${moves}&score=${score}&gridID=${gridID}`, 'POST');
+    let userInfo = await sendRequest(`${serverURL}/api/score/add?username=${username}&time=${time}&moves=${moves}&score=${score}&gridID=${gridID}`, 'POST');
 
     printQueryFeedback(`SERVER: update new score response sucess`, userInfo);
 
