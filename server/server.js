@@ -90,6 +90,7 @@ async function handleRequest(calculations, queryString, headerString, response) 
 };
 
 // --- ENDPOINTS ---
+
 app.get('/api/scores', async (request, response) => {
 
     // custom logic needed to sort

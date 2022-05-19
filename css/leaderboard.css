@@ -87,6 +87,13 @@ td {
         width: 70vw;
     }
 
+    .td-rank {
+        display: flex;
+        flex-direction: row;
+        margin-left: 10%;
+        gap: 0.5em;
+    }
+
     thead,
     tbody tr,
     tfoot {
