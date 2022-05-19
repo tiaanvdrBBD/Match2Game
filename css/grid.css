@@ -135,11 +135,13 @@
 }
 
 .gameInfo {
-    margin-right: 8em;
+    padding: 2em;
 }
 
-.gameSection {
-    margin-left: 3em;
+.gameSection{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .buttonContainer {
@@ -149,6 +151,7 @@
 
 #gameOver{
     display: none; 
+    margin-top: 3em;
 }
 
 
@@ -165,6 +168,10 @@
     .grid8{
         width: 8vw;  
         height: 8vw;
+    }
+
+    .gameSection{
+        justify-content: space-evenly;
     }
 }
 
@@ -197,5 +204,9 @@
     .grid8{
         width: 11vw;  
         height: 11vw;
+    }
+
+    #gameOverImg{
+        display: none;
     }
 }
