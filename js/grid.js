@@ -262,6 +262,9 @@ function populateGrid(gridSizeX, gridSizeY) {
   grid.style.gridTemplateColumns = `${columnSpread.repeat(gridSizeX)}`;
 }
 
+window.addEventListener('load', (event) => {
+  document.getElementById("appNavbar").innerHTML =  navbar() ;
+});
 function reset() {
   hasFlippedCard = false;
   lockBoard = false;

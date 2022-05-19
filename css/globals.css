@@ -13,12 +13,71 @@ html{
 body{
     font-family: 'Be Vietnam'; 
     color: var(--primary);
+    margin: 0;
+    background-image: url("../img/ocean-background.png");
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-color: powderblue; 
+}
+
+.pageContent{
     display: flex;
+    min-height: 100%;
     align-items: center;
     justify-content: center;
-    min-height: 100%;
-    margin: 0;
-    background-color: powderblue;
+}
+
+#appNavbar{
+    background-color: var(--primary);
+    padding: 0 2em;
+    margin-bottom: 3em;
+    color: white;
+    display: block;
+}
+
+#logoImage{
+    width: 6em;
+    height:5em;
+}
+
+#appNavbar #horizontalBar{
+  list-style-type: none;
+  margin: 0;
+  padding: 0.2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#appNavbar ul li{
+    display: inline;
+}
+
+#dropNavButtons{
+    display: none ;
+}
+
+#verticalBar{
+    display: none ;
+    background-color: white;
+    margin:0;
+    padding:0;
+    flex-direction: column;
+}
+
+#verticalBar li{
+  cursor: pointer;
+  color:var(--secondary);
+  padding: 0.5em;
+}
+
+#verticalBar li:hover{
+    border: solid 1px var(--secondary);
+}
+
+#navButtons{
+    margin-top: 0.5em;
 }
 
 h1{
@@ -116,6 +175,11 @@ input[type=text]{
     color: var(--secondary);
     border: 1px solid var(--secondary);
     width: 5.5em;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 15px;
+    height: 4em;
+    cursor:pointer;
 }
 
 .gridStats {
@@ -212,6 +276,28 @@ input[type=text]{
 @media (max-width: 600px)  { 
     input[type=text]{
         font-size: 15px;
+    }
+}
+
+@media (max-width: 500px)  { 
+    #navButtons{
+        display: none;
+    }
+
+    #dropNavButtons{
+        display: block ;
+    }
+
+    #horizontalBar{
+        margin: 1em ;
+    }
+
+    #verticalBar li{
+        display: none ;
+    }
+
+    #appNavbar{
+        padding: 0;
     }
 }
 
