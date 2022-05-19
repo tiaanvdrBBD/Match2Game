@@ -25,6 +25,7 @@
     <script src="../js/index.js"></script>
   </head>
 
+
   <body onload="showGrid()">
     <section id="grid">
       <ul class="navBar">
@@ -32,13 +33,19 @@
       </ul>
 
       <section class="gridContainer">
-        <section class="buttonContainer">
-          <p id="movesLabel" class="gridStats">Moves: 0</p>
-          <p id="timerLabel" class="gridStats">5m 0s</p>
+        <section class="topOffGridContainer">
+          <section class="movesAndTimerContainer">
+            <p id="movesLabel" class="gridStats">Moves: 0</p>
+            <p id="timerLabel" class="gridStats">05:00</p>
+          </section>
+          <p class="gridStats"><img alt="" src="../img/pause.png" 
+            id="playpausebutton" onclick="playpause()"/></p>
+          
+            
         </section>
         <section class="memory-game"></section>
       </section>
-    </section>
+      
 
     <section id="gameOver" class="informationCard" style="display: false">
       
@@ -66,3 +73,4 @@
     </section>
   </body>
 </html>
+
