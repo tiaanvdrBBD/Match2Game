@@ -5,22 +5,51 @@ let lockBoard = false;
 let firstCard, secondCard;
 var url = "C:/GradProgramme/LevelUps/Match2Game/";
 
-// landing page
-function logSession() {
-
-  // add username to session storage
-  sessionStorage.setItem("username", JSON.stringify(document.getElementById("username").value));
-
-  // TODO: remove (show username for dev)
-  console.log(sessionStorage.getItem('username'));
+// add username to session
+function initLanding() {
+  // is same session?
+  if (sessionStorage.getItem("username") !== null) {
+    document.getElementById("username").value = sessionStorage.getItem("username");
+  }
 }
 
-function getGrid(x, y) {
+function usernameChanged(value) {
+  //check if username is not empty
+  if (value !== "") {
+    // show play button
+    document.getElementById("btn-start-game").style.display = "block";
+  } else {
+    // hide play button
+    document.getElementById("btn-start-game").style.display = "none";
+  }
+}
+
+function startGame() {
+  // override storage with input value (can change so just update anyway)
+  sessionStorage.setItem("username", document.getElementById("username").value.trim());
+}
+
+function getGrid(x, y, buttonClicked) {
+
+  // show play button if username not empty
+  if (document.getElementById("username").value.trim() !== "") {
+    document.getElementById("btn-start-game").style.display = "block";
+  }
+
+  // change other buttons to default
+  document.querySelectorAll('.fake-secondary').forEach(btn => {
+    // rest 
+    btn.setAttribute("class", "button primary-button");
+  });
+
+  // change styling
+  buttonClicked.setAttribute("class", "button secondary-button fake-secondary");
+
   sessionStorage.setItem("gridX", x);
   sessionStorage.setItem("gridY", y);
 
   //TODO: remove this: used as debug
-  console.log(sessionStorage.getItem("gridX")+":"+sessionStorage.getItem("gridY"));
+  console.log(sessionStorage.getItem("gridX") + ":" + sessionStorage.getItem("gridY"));
 }
 
 function flipCard() {

@@ -16,75 +16,98 @@
   <script src="./js/navbar.js"></script>
 </head>
 
-<body>
+<body onload="initLanding()">
   <nav id="appNavbar"></nav>
 
   <section class="pageContent">
-  <section id="form" class="informationCard">
-    <h1>Welcome to the Pond!</h1>
-    <label class="label" for="">What is your name?</label>
-    <input class="name_input" type="text" name="username" id="username">
+    <section id="form" class="informationCard">
+      <h1>Welcome to the Pond!</h1>
+      <label class="label" for="">What is your name?</label>
+      <input class="name_input" type="text" name="username" id="username" placeholder="enter username..."
+        oninput="usernameChanged(this.value)">
 
-    <label class="label" for="">Choose your pond size</label>
+      <label class="label" for="">Choose your pond size</label>
 
-    <section class="buttonContainer">
-      <button class="button primary-button" onclick="getGrid(4,4)"> 4x4 </button>
-      <button class="button primary-button" onclick="getGrid(6,6)"> 6x6 </button>
-      <button class="button primary-button" onclick="getGrid(8,8)"> 8x8 </button>
+      <section class="buttonContainer">
+        <button class="button primary-button" onclick="getGrid(4,4, this)"> 4x4 </button>
+        <button class="button primary-button" onclick="getGrid(6,6, this)"> 6x6 </button>
+        <button class="button primary-button" onclick="getGrid(8,8, this)"> 8x8 </button>
+      </section>
+
+      <section class="buttonContainer">
+        <button class="button secondary-button" onclick="showHowToPlay()"> How to play </button>
+        <a href="html/grid.html">
+          <section id="btn-start-game">
+            <button class="button secondary-button" onclick="startGame()">
+              <article class="iconButton">
+                Start Game
+                <i class='fas fa-arrow-right'>
+                </i>
+              </article>
+            </button>
+          </section>
+
+        </a>
+      </section>
+
     </section>
 
-    <section class="buttonContainer">
-      <button class="button secondary-button" onclick="showHowToPlay()"> How to play </button>
-      <a href="html/grid.html">
-        <button class="button secondary-button" onclick="logSession()">
-          <article class="iconButton">
-            Start Game
-            <i class='fas fa-arrow-right'>
-            </i>
-          </article>
-        </button>
-      </a>
+    <section id="howToInfo" class="informationCard">
+      <h2>Game</h2>
+      <p>The object of the game is to collect all the matching pairs.</p>
+
+      <h2>Playing Aqua Find</h2>
+      <p>Start by clicking on a card to turn it over.Go ahead and turn around s second card. If the cards match you got
+        a
+        pair!If they don't match, they will turn back over and you
+        can select two cards again.
+        The game continues in this fashion until all the cards are played.</p>
+
+      <h2>Winning the Game</h2>
+      <p>Once all the cards have been played and all the matching pairs
+        are found, you win!he faster you get all the pairs and with the least amount of
+        moves the higher you will go up in the FIsh Pond</p>
+
+
+      <section class="buttonContainer">
+        <button class="button secondary-button" onclick="hideHowToPlay()">Back</button>
+      </section>
+
     </section>
 
+    <<<<<<< HEAD <div><span onclick="popBubble()" class="dot"></span></div>
+      <div><span onclick="popBubble()" class="dot"></span></div>
+      <div><span onclick="popBubble()" class="dot"></span></div>
+      <div><span onclick="popBubble()" class="dot"></span></div>
+      <div><span onclick="popBubble()" class="dot"></span></div>
+      <div><span onclick="popBubble()" class="dot"></span></div>
+      <div><span onclick="popBubble()" class="dot"></span></div>
+      <div><span onclick="popBubble()" class="dot"></span></div>
+      <div><span onclick="popBubble()" class="dot"></span></div>
+      <div><span onclick="popBubble()" class="dot"></span></div>
+      <div><span onclick="popBubble()" class="dot"></span></div>
+      <div><span onclick="popBubble()" class="dot"></span></div>
+      <div><span onclick="popBubble()" class="dot"></span></div>
+      <div><span onclick="popBubble()" class="dot"></span></div>
+      <div><span onclick="popBubble()" class="dot"></span></div>
+      =======
   </section>
 
-  <section id="howToInfo" class="informationCard">
-    <h2>Game</h2>
-    <p>The object of the game is to collect all the matching pairs.</p>
-
-    <h2>Playing Aqua Find</h2>
-    <p>Start by clicking on a card to turn it over.Go ahead and turn around s second card. If the cards match you got a pair!If they don't match, they will turn back over and you
-    can select two cards again.
-    The game continues in this fashion until all the cards are played.</p>
-
-    <h2>Winning the Game</h2>
-    <p>Once all the cards have been played and all the matching pairs
-    are found, you win!he faster you get all the pairs and with the least amount of
-    moves the higher you will go up in the FIsh Pond</p>
-
-
-    <section class="buttonContainer">
-      <button class="button secondary-button" onclick="hideHowToPlay()">Back</button>
-    </section>
-    
-  </section>
-
-</section>
-
-    <div><span class="dot"></span></div>
-    <div><span class="dot"></span></div>
-    <div><span class="dot"></span></div>
-    <div><span class="dot"></span></div>
-    <div><span class="dot"></span></div>
-    <div><span class="dot"></span></div>
-    <div><span class="dot"></span></div>
-    <div><span class="dot"></span></div>
-    <div><span class="dot"></span></div>
-    <div><span class="dot"></span></div>
-    <div><span class="dot"></span></div>
-    <div><span class="dot"></span></div>
-    <div><span class="dot"></span></div>
-    <div><span class="dot"></span></div>
+  <div><span class="dot"></span></div>
+  <div><span class="dot"></span></div>
+  <div><span class="dot"></span></div>
+  <div><span class="dot"></span></div>
+  <div><span class="dot"></span></div>
+  <div><span class="dot"></span></div>
+  <div><span class="dot"></span></div>
+  <div><span class="dot"></span></div>
+  <div><span class="dot"></span></div>
+  <div><span class="dot"></span></div>
+  <div><span class="dot"></span></div>
+  <div><span class="dot"></span></div>
+  <div><span class="dot"></span></div>
+  <div><span class="dot"></span></div>
+  >>>>>>> origin/main
 
   <script src="js/app.js"></script>
   <script src="js/index.js"></script>
