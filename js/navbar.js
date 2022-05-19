@@ -23,7 +23,7 @@ function navbar(){
       </ul>
       <ul id="verticalBar">
           <li>
-            <a href="navHome()">Pond Size</a>
+            <a onclick="navHome()">Pond Size</a>
           </li>
           <li>
             <a href="../html/leaderboard.html">The Fish Pond</a>

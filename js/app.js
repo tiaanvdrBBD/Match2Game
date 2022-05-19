@@ -43,7 +43,7 @@ function getGrid(x, y, buttonClicked) {
   });
 
   // change styling
-  buttonClicked.setAttribute("class", "button secondary-button fake-secondary");
+  buttonClicked.setAttribute("class", "button primary-button fake-secondary");
 
   sessionStorage.setItem("gridX", x);
   sessionStorage.setItem("gridY", y);
