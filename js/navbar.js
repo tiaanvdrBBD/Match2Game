@@ -8,13 +8,13 @@ function navbar(){
         </section>
         <section id="navButtons">
           <li>
-            <button class="tertiary-button">Pond Size</button>
+            <a href="../index.html"><button class="tertiary-button">Pond Size</button></a>
           </li>
           <li>
-            <button class="tertiary-button">The Fish Pond</button>
+           <a href="../html/leaderboard.html"><button class="tertiary-button">The Fish Pond</button>
           </li>
           <li>
-            <button class="tertiary-button">How to play?</button>
+            <a onclick="navHTP()"><button class="tertiary-button">How to play?</button></a>
           </li>
         </section>
         <section id="dropNavButtons" onclick="toggleDropMenu()">
@@ -27,6 +27,12 @@ function navbar(){
           <li>How to play?</li>
       </ul>
     `
+}
+
+function navHTP() {
+  sessionStorage.setItem("howToPlay", true);
+
+  window.location.href = "../index.html";
 }
 
 function toggleDropMenu(){
