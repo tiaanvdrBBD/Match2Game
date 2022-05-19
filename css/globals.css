@@ -69,6 +69,8 @@ body {
 
 #dropNavButtons{
     display: none ;
+    margin-right: 1.5em;
+    font-size: xx-large;
 }
 
 #verticalBar{
@@ -273,7 +275,7 @@ input[type=text] {
 @media (max-width: 630px) {
 
     h1 {
-        font-size: 60px;
+        font-size: 45px;
         text-align: center;
     }
 
@@ -294,6 +296,8 @@ input[type=text] {
         min-width: fit-content;
     }
 
+    
+
 }
 
 
@@ -310,8 +314,8 @@ input[type=text] {
 
     #dropNavButtons{
         display: block ;
-        font-size: larger;
-        margin-right: 1em;
+        margin-right: 1.5em;
+        font-size: xx-large;
     }
 
     #horizontalBar{
@@ -325,6 +329,11 @@ input[type=text] {
     #appNavbar{
         padding: 0;
         width: 107vw;
+        margin-bottom: 0;
+    }
+
+    .pageContent{
+        min-height: auto;
     }
 }
 
