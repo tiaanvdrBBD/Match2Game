@@ -7,7 +7,7 @@
 /*<div> Icons made by <a href="https://www.flaticon.com/authors/iyahicon" title="IYAHICON"> IYAHICON </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>*/
 
 html {
-    height: 100%;
+     height: 100%; 
 }
 
 body {
@@ -15,10 +15,18 @@ body {
     color: var(--primary);
     margin: 0;
     background-image: url("../img/ocean-background.png");
-    background-position: center;
     background-repeat: no-repeat; 
     background-size: cover; 
     background-color: powderblue; 
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
 }
 
 .pageContent{
@@ -33,6 +41,7 @@ body {
     padding: 0 2em;
     color: white;
     display: block;
+    margin-bottom: -4em;
 }
 
 #logoImage{
@@ -123,6 +132,7 @@ a{
     border-radius: 16px;
     padding: 2em 2em;
     z-index: 2;
+    min-height: 55vh;
 }
 
 input[type=text] {
@@ -272,6 +282,11 @@ input[type=text] {
         width: 80vw;
     }
 
+    #form, #howToInfo, #leaderboardContainer{
+        border-radius: 0;
+        min-width: fit-content;
+    }
+
 }
 
 
@@ -288,6 +303,8 @@ input[type=text] {
 
     #dropNavButtons{
         display: block ;
+        font-size: larger;
+        margin-right: 1em;
     }
 
     #horizontalBar{
@@ -300,6 +317,7 @@ input[type=text] {
 
     #appNavbar{
         padding: 0;
+        width: 107vw;
     }
 }
 

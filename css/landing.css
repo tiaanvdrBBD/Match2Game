@@ -12,6 +12,8 @@
 #form{
     width: 40vw; 
     gap: 1.5em;
+    flex-direction: column;
+    justify-content: center;
 }
 
 a {
