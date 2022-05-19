@@ -14,7 +14,7 @@ function navbar(){
            <a href="../html/leaderboard.html"><button class="tertiary-button">The Fish Pond</button>
           </li>
           <li>
-            <a href="../index.html" onclick="showHowToPlay()"><button class="tertiary-button">How to play?</button></a>
+            <a onclick="navHTP()"><button class="tertiary-button">How to play?</button></a>
           </li>
         </section>
         <section id="dropNavButtons" onclick="toggleDropMenu()">
@@ -29,9 +29,10 @@ function navbar(){
     `
 }
 
-function showHowToPlay() {
-  this.document.getElementById("form").style.display = 'none';
-  this.document.getElementById("howToInfo").style.display = 'flex';
+function navHTP() {
+  sessionStorage.setItem("howToPlay", true);
+
+  window.location.href = "../index.html";
 }
 
 function toggleDropMenu(){
