@@ -16,7 +16,8 @@
   <script src="../js/grid.js"></script>
   <script src="../js/index.js"></script>
   <script src="../js/navbar.js"></script>
-  
+  <script src="../js/leaderboard.js"></script>
+
 </head>
 
 <body onload="showGrid()">
@@ -24,43 +25,46 @@
 
   <section class="pageContent">
 
-  <section class="gridContainer" id="grid">
-    <section class="topOffGridContainer">
-      <section class="movesAndTimerContainer">
-        <p id="movesLabel" class="gridStats">Moves: 0</p>
-        <p id="timerLabel" class="gridStats">05:00</p>
-      </section>
-      <p class="gridStats"><img alt="" src="../img/pause.png" id="playpausebutton" onclick="playpause()"/></p> 
-    </section>
-    <section class="memory-game"></section>
-  </section>
-
-
-    <section id="gameOver" class="informationCard"> 
-    <section class="gameSection">
-      <section class="gameInfo">
-        <h1 id="heading"></h1>
-        <p id="gameOverMessage"></p>
-        <h3 id="score"></h2>
-        <section class="gameSectionDisplay">
-          <p id="moves"></p>
-          <p id="time"></p>
+    <section class="gridContainer" id="grid">
+      <section class="topOffGridContainer">
+        <section class="movesAndTimerContainer">
+          <p id="movesLabel" class="gridStats">Moves: 0</p>
+          <p id="timerLabel" class="gridStats">05:00</p>
         </section>
+        <p class="gridStats"><img alt="" src="../img/pause.png" id="playpausebutton" onclick="playpause()" /></p>
       </section>
-      <img src="../img/success.svg" alt="Game Over image" id="gameOverImg"/>
+      <section class="memory-game"></section>
     </section>
-    
-    <section class="buttonContainer">
-      <button class="button secondary-button">View the Fish Pond</button>
-      <button class="button secondary-button">
-        <a href="../index.html">
-        <article class="iconButton" onclick="playAgain()">
-          Play Again <i class="fas fa-arrow-right"></i>
-        </article>
-      </a>
-      </button>
+
+
+    <section id="gameOver" class="informationCard">
+      <section class="gameSection">
+        <section class="gameInfo">
+          <h1 id="heading"></h1>
+          <p id="gameOverMessage"></p>
+          <h3 id="score">
+            </h2>
+            <section class="gameSectionDisplay">
+              <p id="moves"></p>
+              <p id="time"></p>
+            </section>
+        </section>
+        <img src="../img/success.svg" alt="Game Over image" id="gameOverImg" />
+      </section>
+
+      <section class="buttonContainer">
+        <a href="./leaderboard.html">
+          <button class="button secondary-button">View the Fish Pond</button>
+        </a>
+        <button class="button secondary-button">
+          <a href="../index.html">
+            <article class="iconButton" onclick="playAgain()">
+              Play Again <i class="fas fa-arrow-right"></i>
+            </article>
+          </a>
+        </button>
+      </section>
     </section>
-  </section>
 
 
 </body>
