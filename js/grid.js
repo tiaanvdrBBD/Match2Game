@@ -26,10 +26,6 @@ function showGrid() {
   populateGrid(sessionStorage.getItem("gridX"), sessionStorage.getItem("gridY"));
 }
 
-function playAgain() {
-  alert('helle');
-}
-
 function evaluation() {
   let fraction = successful / (successful + unsuccessful);
   let result = Math.round(((maxTime * 60) - timeTaken + (maxTime * 60) * fraction) * multiplier);
@@ -37,10 +33,10 @@ function evaluation() {
 }
 
 function tick() {
-  
+
   if (!pause) {
     console.log('inside tick');
-    
+
     timeLeft = timeLeft - 1000;
 
     minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
@@ -77,7 +73,7 @@ function flipCard() {
     timeLeft = 300000;
 
     if (timerID == -1) {
-      // set unique ID to interval 
+      // set unique ID to interval
       timerID = setInterval(tick, 1000);
     }
   }
@@ -114,7 +110,7 @@ function flipCard() {
     document.getElementById("moves").innerHTML = `Moves: ${successful + unsuccessful}`;
     document.getElementById("time").innerHTML = `Time: ${minutes + "m " + seconds + "s"}`;
     document.getElementById("gameOverImg").src = `../img/success.svg`;    // reset everything
-    
+
     hasFlippedCard = false;
     lockBoard = false;
     firstCard, secondCard;
@@ -220,7 +216,7 @@ function freePlayGenerate() {
 function playpause() {
   pause = !pause;
   let button = document.getElementById("playpausebutton");
-  
+
   if (button.src.match("../img/pause.png")){
     button.style.transform  = "rotate(360deg)";
     button.src =  "../img/play.png";
