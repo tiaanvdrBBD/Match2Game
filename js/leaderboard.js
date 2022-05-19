@@ -304,6 +304,11 @@ async function populateLeaderboard() {
         });
 
         tableBody.appendChild(leaderRow);
+
     });
 
 }
+
+window.addEventListener('load', (event) => {
+    document.getElementById("appNavbar").innerHTML = navbar();
+});
