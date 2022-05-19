@@ -15,4 +15,5 @@ function hideHowToPlay(){
 
 window.addEventListener('load', (event) => {
     document.getElementById("appNavbar").innerHTML =  navbar() ;
+    document.getElementById("navButtons").style.display = 'none';
 });

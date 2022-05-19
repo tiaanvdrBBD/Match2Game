@@ -213,3 +213,7 @@ function populateGrid(gridSizeX, gridSizeY) {
   const columnSpread = '1fr ';
   grid.style.gridTemplateColumns = `${columnSpread.repeat(gridSizeX)}`;
 }
+
+window.addEventListener('load', (event) => {
+  document.getElementById("appNavbar").innerHTML =  navbar() ;
+});

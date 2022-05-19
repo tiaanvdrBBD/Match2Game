@@ -12,7 +12,11 @@ body{
     font-family: 'Be Vietnam'; 
     color: var(--primary);
     margin: 0;
-    background-color: powderblue;
+    background-image: url("../img/ocean-background.png");
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-color: powderblue; 
 }
 
 .pageContent{
@@ -30,10 +34,15 @@ body{
     display: block;
 }
 
+#logoImage{
+    width: 6em;
+    height:5em;
+}
+
 #appNavbar #horizontalBar{
   list-style-type: none;
   margin: 0;
-  padding: 1em;
+  padding: 0.2em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -65,6 +74,9 @@ body{
     border: solid 1px var(--secondary);
 }
 
+#navButtons{
+    margin-top: 0.5em;
+}
 
 h1{
     font-family: 'Chewy';

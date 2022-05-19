@@ -2,7 +2,9 @@ function navbar(){
     return `
       <ul id="horizontalBar">
         <section>
-          <li id="gameLogo" class="secondary-button">AquaFind</li>
+          <li id="gameLogo" class="secondary-button">
+            <img src="img/logo.png" alt="AquaFind" id="logoImage" onerror="this.src='../img/logo.png';" >
+          </li>
         </section>
         <section id="navButtons">
           <li>
@@ -29,10 +31,16 @@ function navbar(){
 
 function toggleDropMenu(){
   let elementSelected = document.getElementById("verticalBar");
+  let path = window.location.pathname;
+  let page = path.split("/").pop();
 
-  if(elementSelected.style.display == 'flex'){
-    elementSelected.style.display = 'none';
-  }else{
-    elementSelected.style.display = 'flex';
+  if(page !== 'index.html'){
+    if(elementSelected.style.display == 'flex'){
+      elementSelected.style.display = 'none';
+    }else{
+      elementSelected.style.display = 'flex';
+    }
   }
+
+
 }

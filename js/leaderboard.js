@@ -97,3 +97,7 @@ function populateLeaderboard(){
      }); 
     
 }
+
+window.addEventListener('load', (event) => {
+    document.getElementById("appNavbar").innerHTML =  navbar() ;
+});
