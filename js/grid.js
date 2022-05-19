@@ -6,15 +6,15 @@ let firstCard, secondCard;
 let gameStart = 0;
 let gameDone = 0; //sit next to line gameStart
 let moves = 0;
-var maxTime = 5;
-var timeTaken = 0;
-var countDownDate = 0;
-var successful = 0;
-var unsuccessful = 0;
-var xAxis = 0;
-var yAxis = 0;
+let maxTime = 5;
+let timeTaken = 0;
+let successful = 0;
+let unsuccessful = 0;
+let xAxis = 0;
+let yAxis = 0;
 let pause = false;  //0 meaning it's not paused
 let timeLeft = 0;
+let multiplier = 0;
 
 // added
 let timerID = -1;
@@ -28,9 +28,9 @@ function playAgain() {
   alert('helle');
 }
 
-function heuristic() {
-  var fraction = successful / (successful + unsuccessful);
-  var result = Math.round((maxTime * 60) - timeTaken + (maxTime * 60) * fraction);
+function evaluation() {
+  let fraction = successful / (successful + unsuccessful);
+  let result = Math.round(((maxTime * 60) - timeTaken + (maxTime * 60) * fraction) * multiplier);
   return result > 0 ? result : 0;
 }
 
@@ -41,16 +41,16 @@ function tick() {
     
     timeLeft = timeLeft - 1000;
 
-    var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+    let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
     let m = minutes > 0 ? (minutes < 10 ? "0" : "") + minutes + ":" : "00:";
     let s = seconds > 0 ? (seconds < 10 ? "0" : "") + seconds : "00";
     // Display timer (id="timer")
     document.getElementById("timerLabel").innerHTML = m + s;
 
-    var minutesLeft = maxTime - minutes;
-    var secondsLeft = 60 - seconds;
+    let minutesLeft = maxTime - minutes;
+    let secondsLeft = 60 - seconds;
     timeTaken = minutesLeft * 60 + secondsLeft;
     // time up
     if (timeLeft < 0) {
@@ -63,12 +63,7 @@ function tick() {
   }
 
 }
-function timerr() {
-  pause = !pause;
-  
-  //curr = !curr;
-  //then = new Date().getTime();
-}
+
 // function called when card clicked (shows picture)
 function flipCard() {
   if (lockBoard) return;
@@ -104,14 +99,13 @@ function flipCard() {
 
   if (timerID == -1) {
     // set unique ID to interval
-    //timeLeft = countDownDate - now;
     timerID = setInterval(tick, 1000);
   }
   if (gameDone == 1) {
     //stop running the interval
     clearInterval(timerID);
     // display score
-    document.getElementById("timerLabel").innerHTML = `Complete! Score: ${heuristic()}
+    document.getElementById("timerLabel").innerHTML = `Complete! Score: ${evaluation()}
     Moves: ${successful + unsuccessful}`;
     // reset everything
     hasFlippedCard = false;
@@ -121,7 +115,6 @@ function flipCard() {
     gameDone = 0; //sit next to line gameStart
     maxTime = 5;
     timeTaken = 0;
-    countDownDate = 0;
     successful = 0;
     unsuccessful = 0;
     xAxis = 0;
@@ -157,12 +150,12 @@ function checkForMatch() {
     unsuccessful++;
     unflipCards();
   }
-  var perfectGame = xAxis * yAxis;
+  let perfectGame = xAxis * yAxis;
   // If you've made each successfull move, you must've finished
   if (successful == perfectGame / 2) {
     gameDone = 1;
   }
-  console.log(heuristic());
+  console.log(evaluation());
 };
 
 /* when other cards picked*/
@@ -219,8 +212,8 @@ function playpause() {
   let button = document.getElementById("playpausebutton");
   
   if (button.src.match("../img/pause.png")){
-      button.style.transform  = "rotate(360deg)";
-      button.src =  "../img/play.png";
+    button.style.transform  = "rotate(360deg)";
+    button.src =  "../img/play.png";
   } else {
     button.style.transform = "rotate(-360deg)";
     button.src = "../img/pause.png";
@@ -233,13 +226,14 @@ function populateGrid(gridSizeX, gridSizeY) {
   resetTimer('05:00');
   xAxis = gridSizeX;
   yAxis = gridSizeY;
+  multiplier = (xAxis == 4) ? 150 : ((xAxis == 6) ? 200 : 250);
   gameStart = 1;
   const grid = document.getElementsByClassName("memory-game")[0];
   grid.replaceChildren();
   let imageCount = 0;
   let randomSubsetWithDuplicates = randomCardImages(gridSizeX, gridSizeY);
 
-  for (var i = 0; i < gridSizeX * gridSizeY; i++) {
+  for (let i = 0; i < gridSizeX * gridSizeY; i++) {
     let imageSource = randomSubsetWithDuplicates[imageCount++];
 
     let card = document.createElement('article');
@@ -276,7 +270,6 @@ function reset() {
   gameDone = 0; //sit next to line gameStart
   maxTime = 5;
   timeTaken = 0;
-  countDownDate = 0;
   successful = 0;
   unsuccessful = 0;
   xAxis = 0;
