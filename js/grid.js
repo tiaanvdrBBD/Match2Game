@@ -106,18 +106,19 @@ function flipCard() {
   if (gameDone == 1) {
     clearInterval(timerID);
     showGameOver();
-
     // add to session
     sessionStorage.setItem('moves', moves);
     sessionStorage.setItem('time', minutes * 60 + seconds);
     sessionStorage.setItem('score', evaluation());
+
+    sessionStorage.setItem('save', true);
 
     document.getElementById("heading").innerHTML = `Congratulations!`;
     document.getElementById("gameOverMessage").innerHTML = `You made it out the fish pond.`;
     document.getElementById("score").innerHTML = `${evaluation()} - ${sessionStorage.getItem('username')} `;
     document.getElementById("moves").innerHTML = `Moves: ${moves}`;
     document.getElementById("time").innerHTML = `Time: ${minutes + "m " + seconds + "s"}`;
-    document.getElementById("gameOverImg").src = `../img/success.svg`;    // reset everything
+    document.getElementById("gameOverImg").src = `../img/success.svg`; // reset everything
     reset();
   } else if (gameDone == 2) {
     showGameOver();
@@ -213,9 +214,9 @@ function playpause() {
   pause = !pause;
   let button = document.getElementById("playpausebutton");
 
-  if (button.src.match("../img/pause.png")){
-    button.style.transform  = "rotate(360deg)";
-    button.src =  "../img/play.png";
+  if (button.src.match("../img/pause.png")) {
+    button.style.transform = "rotate(360deg)";
+    button.src = "../img/play.png";
   } else {
     button.style.transform = "rotate(-360deg)";
     button.src = "../img/pause.png";
@@ -263,7 +264,7 @@ function populateGrid(gridSizeX, gridSizeY) {
 }
 
 window.addEventListener('load', (event) => {
-  document.getElementById("appNavbar").innerHTML =  navbar() ;
+  document.getElementById("appNavbar").innerHTML = navbar();
 });
 
 function reset() {

@@ -190,7 +190,6 @@ async function populateLeaderboard() {
     activePlayerScore = sessionStorage.getItem('score');
 
     let gridSizeID = sessionStorage.getItem('gridX') === 4 ? 1 : sessionStorage.getItem('gridX') === 6 ? 2 : 3;
-    console.log('grid size' + gridSizeID);
 
     // get old top 100 scores for grid
     let responseBody = await getAllGridScores(gridSizeID);
@@ -348,9 +347,10 @@ async function populateLeaderboard() {
     });
 
     // write new score if top 100
-    if (curRank !== -1) {
+    if (curRank !== -1 && sessionStorage.getItem('save')) {
         // (gridID, username, time, moves, score) 
-        updateScores(1, activePlayerName, activePlayerTime, activePlayerMoves, activePlayerScore);
+        sessionStorage.removeItem('save');
+        await updateScores(gridSizeID, activePlayerName, activePlayerTime, activePlayerMoves, activePlayerScore);
     }
 }
 
