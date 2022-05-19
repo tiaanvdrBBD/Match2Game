@@ -110,6 +110,12 @@ function flipCard() {
   if (gameDone == 1) {
     clearInterval(timerID);
     showGameOver();
+
+    // add to session
+    sessionStorage.setItem('moves', moves);
+    sessionStorage.setItem('time', minutes * 60 + seconds);
+    sessionStorage.setItem('score', evaluation());
+
     document.getElementById("heading").innerHTML = `Congratulations!`;
     document.getElementById("gameOverMessage").innerHTML = `You made it out the fish pond.`;
     document.getElementById("score").innerHTML = `${evaluation()} - ${sessionStorage.getItem('username')} `;

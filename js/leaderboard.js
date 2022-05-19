@@ -127,18 +127,20 @@ function assignPrevRank(curPlayerScoresAndPositions) {
     console.log(`old scores and pos: ${JSON.stringify(curPlayerScoresAndPositions, null, 2)}`);
     console.log(`cur Rank: ${JSON.stringify(curRank, null, 2)}`);
 
-    // assign prev pos 
-    //above
-    if (curRank.position < curPlayerScoresAndPositions[0].position &&
-        curRank.score > curPlayerScoresAndPositions[0].score) {
-        return curPlayerScoresAndPositions[0];
-    }
+    if (curPlayerScoresAndPositions.length > 0) {
+        // assign prev pos 
+        //above
+        if (curRank.position < curPlayerScoresAndPositions[0].position &&
+            curRank.score > curPlayerScoresAndPositions[0].score) {
+            return curPlayerScoresAndPositions[0];
+        }
 
 
-    //below
-    if (curRank.position > curPlayerScoresAndPositions[curPlayerScoresAndPositions.length - 1].position &&
-        curRank.score < curPlayerScoresAndPositions[curPlayerScoresAndPositions.length - 1].score) {
-        return curPlayerScoresAndPositions[curPlayerScoresAndPositions.length - 1];
+        //below
+        if (curRank.position > curPlayerScoresAndPositions[curPlayerScoresAndPositions.length - 1].position &&
+            curRank.score < curPlayerScoresAndPositions[curPlayerScoresAndPositions.length - 1].score) {
+            return curPlayerScoresAndPositions[curPlayerScoresAndPositions.length - 1];
+        }
     }
 
     //between/same
@@ -171,21 +173,27 @@ function getRankLabel() {
 // TODO: remove static data below
 let prevRank = -1; // can be null
 let curRank = -1;
-let activePlayerName = 'Morgan';
-let activePlayerMoves = 12;
-let activePlayerTime = 33;
-let activePlayerScore = 15000;
+let activePlayerName = '';
+let activePlayerMoves = -1;
+let activePlayerTime = -1;
+let activePlayerScore = -1;
 let scoreColor = 'red';
 let showsArrow = false;
 let curPlayerScores = null;
 
 async function populateLeaderboard() {
 
-    // ** get grid from session
-    // ** get username from session
+    console.log(`inside populateLeaderboard`);
+    activePlayerName = sessionStorage.getItem('username');
+    activePlayerMoves = sessionStorage.getItem('moves');
+    activePlayerTime = sessionStorage.getItem('time');
+    activePlayerScore = sessionStorage.getItem('score');
+
+    let gridSizeID = sessionStorage.getItem('gridX') === 4 ? 1 : sessionStorage.getItem('gridX') === 6 ? 2 : 3;
+    console.log('grid size' + gridSizeID);
 
     // get old top 100 scores for grid
-    let responseBody = await getAllGridScores(1);
+    let responseBody = await getAllGridScores(gridSizeID);
 
     // add score
     let curPlayerData = {
@@ -284,12 +292,15 @@ async function populateLeaderboard() {
                     leaderColumn.innerHTML = index + 1;
                 }
             } else {
-                leaderColumn.innerHTML = leader[tableProperty];
+                if (tableProperty === 'time_') {
+                    leaderColumn.innerHTML = `${Math.floor(leader[tableProperty] / 60)}min ${leader[tableProperty] % 60}s`;
+                } else {
+                    leaderColumn.innerHTML = leader[tableProperty];
+                }
             }
 
             // cur player header and footer
             if (leader.curPlayerData) {
-                // if (leader.username === activePlayerName && leader.score === activePlayerScore) {
                 let tableFoot = document.getElementById('activePlayerResults-footer');
                 let tableHead = document.getElementById('activePlayerResults-header');
 
@@ -300,8 +311,13 @@ async function populateLeaderboard() {
                     footerData.innerHTML = index + 1;
                     headerData.innerHTML = index + 1;
                 } else {
-                    footerData.innerHTML = leader[tableProperty];
-                    headerData.innerHTML = leader[tableProperty];
+                    if (tableProperty === 'time_') {
+                        footerData.innerHTML = `${Math.floor(leader[tableProperty] / 60)}min ${leader[tableProperty] % 60}s`;
+                        headerData.innerHTML = `${Math.floor(leader[tableProperty] / 60)}min ${leader[tableProperty] % 60}s`;
+                    } else {
+                        footerData.innerHTML = leader[tableProperty];
+                        headerData.innerHTML = leader[tableProperty];
+                    }
                 }
 
                 if (tableProperty != 'rank' && tableProperty != 'username') {
@@ -317,7 +333,6 @@ async function populateLeaderboard() {
                 leaderColumn.setAttribute('class', 'hideColumn');
             }
 
-            //  if (leader.username === activePlayerName && leader.score === activePlayerScore) {
             if (leader.curPlayerData) {
                 passedHighest = true;
             }
@@ -332,8 +347,8 @@ async function populateLeaderboard() {
     // write new score if top 100
     if (curRank !== -1) {
         // (gridID, username, time, moves, score) 
-        let updateInfo = await updateScores(1, activePlayerName, activePlayerTime, activePlayerMoves, activePlayerScore);
-        console.log(updateInfo);
+        //  let updateInfo = await updateScores(1, activePlayerName, activePlayerTime, activePlayerMoves, activePlayerScore);
+        //  console.log(updateInfo);
     }
 
 }
