@@ -110,8 +110,6 @@ function flipCard() {
     showGameOver();
     document.getElementById("heading").innerHTML = `Congratulations!`;
     document.getElementById("gameOverMessage").innerHTML = `You made it out the fish pond.`;
-    //document.getElementById("score").innerHTML = `${evaluation()} - Vicky `;
-    sessionStorage.setItem('username', "JJJJJJJJ");
     document.getElementById("score").innerHTML = `${evaluation()} - ${sessionStorage.getItem('username')} `;
     document.getElementById("moves").innerHTML = `Moves: ${successful + unsuccessful}`;
     document.getElementById("time").innerHTML = `Time: ${minutes + "m " + seconds + "s"}`;
