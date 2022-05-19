@@ -82,11 +82,13 @@ function flipCard() {
     }
   }
 
-  moves++;
-  document.getElementById("movesLabel").innerHTML = "Moves: " + moves;
+  
 
   if (this === firstCard) return;
 
+  moves++;
+  document.getElementById("movesLabel").innerHTML = "Moves: " + moves;
+  
   this.classList.add('flip');
 
   if (!hasFlippedCard) {
