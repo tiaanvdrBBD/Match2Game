@@ -15,22 +15,24 @@
 
   <script src="../js/grid.js"></script>
   <script src="../js/navbar.js"></script>
+  
 </head>
 
 <body onload="showGrid()">
   <nav id="appNavbar"></nav>
-   <ul class="navBar">
-    <li  class="items"><a class="active" href="../index.html">Home</a></li>
-    <section id="timer-container">
-      <p id="timerLabel"></p>
-      <button id="timer-button" onclick="playAgain()" hidden="true">Play again</button>
-    </section>
-  </ul> 
 
   <section class="pageContent">
+
+  <section class="gridContainer">
+    <section class="topOffGridContainer">
+      <section class="movesAndTimerContainer">
+        <p id="movesLabel" class="gridStats">Moves: 0</p>
+        <p id="timerLabel" class="gridStats">05:00</p>
+      </section>
+      <p class="gridStats"><img alt="" src="../img/pause.png" id="playpausebutton" onclick="playpause()"/></p> 
+    </section>
     <section class="memory-game"></section>
   </section>
-
 </body>
 
 </html>
