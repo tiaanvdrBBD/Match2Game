@@ -62,7 +62,7 @@ function tick() {
       showGameOver();
       document.getElementById("heading").innerHTML = `Oops!`;
       document.getElementById("gameOverMessage").innerHTML = `You were caught...`;
-      document.getElementById("moves").innerHTML = `Moves: ${successful + unsuccessful}`;
+      document.getElementById("moves").innerHTML = `Moves: ${moves}`;
       document.getElementById("time").innerHTML = `Time: ${minutes + "m " + seconds + "s"}`;
       document.getElementById("gameOverImg").src = `../img/unsuccess.svg`;
     }
@@ -110,10 +110,8 @@ function flipCard() {
     showGameOver();
     document.getElementById("heading").innerHTML = `Congratulations!`;
     document.getElementById("gameOverMessage").innerHTML = `You made it out the fish pond.`;
-    //document.getElementById("score").innerHTML = `${evaluation()} - Vicky `;
-    sessionStorage.setItem('username', "JJJJJJJJ");
     document.getElementById("score").innerHTML = `${evaluation()} - ${sessionStorage.getItem('username')} `;
-    document.getElementById("moves").innerHTML = `Moves: ${successful + unsuccessful}`;
+    document.getElementById("moves").innerHTML = `Moves: ${moves}`;
     document.getElementById("time").innerHTML = `Time: ${minutes + "m " + seconds + "s"}`;
     document.getElementById("gameOverImg").src = `../img/success.svg`;    // reset everything
     
@@ -133,7 +131,7 @@ function flipCard() {
     showGameOver();
     document.getElementById("heading").innerHTML = `Oops!`;
     document.getElementById("gameOverMessage").innerHTML = `You were caught...`;
-    document.getElementById("moves").innerHTML = `Moves: ${successful + unsuccessful}`;
+    document.getElementById("moves").innerHTML = `Moves: ${moves}`;
     document.getElementById("time").innerHTML = `Time: ${minutes + "m " + seconds + "s"}`;
     document.getElementById("gameOverImg").src = `../img/unsuccess.svg`;
   } else {

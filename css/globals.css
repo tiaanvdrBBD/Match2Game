@@ -31,7 +31,6 @@ body {
 #appNavbar{
     background-color: var(--primary);
     padding: 0 2em;
-    margin-bottom: 3em;
     color: white;
     display: block;
 }
@@ -107,6 +106,11 @@ label {
     font-weight: 700;
     font-size: 24px;
     line-height: 35px;
+}
+
+a{
+    color: white;
+    text-decoration: none;
 }
 
 .informationCard {
