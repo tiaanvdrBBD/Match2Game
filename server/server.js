@@ -3,13 +3,13 @@ const cors = require('cors');
 const util = require('util');
 const app = express(); // instantiate Express
 app.use(cors({
-    origin: '*'
+    origin: '*',
 }));
 app.use(express.json({ // protects against large requests
     limit: '1mb'
 }));
 
-const port = 3000; // set up our port
+const port = 80; // set up our port
 app.listen(port, () => console.log(`Server started on ${port}...`)); // start server
 
 const mysql = require('mysql');

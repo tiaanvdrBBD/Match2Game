@@ -1,3 +1,5 @@
+const serverURL = 'http://3.208.90.252';
+
 // handles requests to server
 async function sendRequest(url, type) {
     const options = {
@@ -24,7 +26,7 @@ async function sendRequest(url, type) {
 // get all a grid's info with gridID = [4x4 = 1], [6x6 = 2], [8x8 = 3]
 async function getAllGridScores(gridID) {
 
-    let usersInfo = await sendRequest(`http://localhost:3000/api/scores?gridID=${gridID}`, 'GET');
+    let usersInfo = await sendRequest(`${serverURL}/api/scores?gridID=${gridID}`, 'GET');
     printQueryFeedback(`SERVER: get scores response sucess`, usersInfo);
 
     return usersInfo;
@@ -32,7 +34,7 @@ async function getAllGridScores(gridID) {
 
 
 async function getPlayerGridScores(gridID, username) {
-    let userInfo = await sendRequest(`http://localhost:3000/api/player/scores?gridID=${gridID}&username=${username}`, 'GET');
+    let userInfo = await sendRequest(`${serverURL}/api/player/scores?gridID=${gridID}&username=${username}`, 'GET');
     printQueryFeedback(`SERVER: get player score(s) response sucess`, userInfo);
 
     return userInfo;
