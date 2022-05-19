@@ -32,6 +32,14 @@ async function getAllGridScores(gridID) {
     return usersInfo;
 }
 
+async function updateScores(gridID, username, time, moves, score) {
+    let userInfo = await sendRequest(`${serverURL}/api/score/add?username=${username}&time=${time}&moves=${moves}&score=${score}&gridID=${gridID}`, 'POST');
+
+    printQueryFeedback(`SERVER: update new score response sucess`, userInfo);
+
+    return userInfo;
+}
+
 
 async function getPlayerGridScores(gridID, username) {
     let userInfo = await sendRequest(`${serverURL}/api/player/scores?gridID=${gridID}&username=${username}`, 'GET');
@@ -57,11 +65,9 @@ function serverError() {
 }
 
 const tableHeaders = ['rank', 'username', 'moves', 'time_', 'score'];
-
-// TODO: remove static data below
-
 let previousY = 0;
 let currentY = 0;
+
 const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
 
@@ -80,10 +86,10 @@ const observer = new IntersectionObserver(entries => {
                 if (currentY <= previousY && previousY !== 0) {
                     // show header
                     document.getElementById("activePlayerResults-footer").style.color = "#FFFFFF";
-                    document.getElementById("activePlayerResults-header").style.color = "red";
+                    document.getElementById("activePlayerResults-header").style.color = scoreColor;
                 } else {
                     // show footer
-                    document.getElementById("activePlayerResults-footer").style.color = "red";
+                    document.getElementById("activePlayerResults-footer").style.color = scoreColor;
                     document.getElementById("activePlayerResults-header").style.color = "#FFFFFF";
                 }
             }
@@ -101,8 +107,10 @@ function getCurPlayerPositionsAndScores(top100Data, curUsername) {
         if (curUsername === player.username) {
 
             if (player.curPlayerData) {
-
-                curRank = index + 1;
+                curRank = {
+                    score: player.score,
+                    position: index + 1
+                }
             } else {
                 curPlayerScores.push({
                     score: player.score,
@@ -114,16 +122,39 @@ function getCurPlayerPositionsAndScores(top100Data, curUsername) {
     return curPlayerScores;
 }
 
+function assignPrevRank(curPlayerScoresAndPositions) {
+
+    console.log(`old scores and pos: ${JSON.stringify(curPlayerScoresAndPositions, null, 2)}`);
+    console.log(`cur Rank: ${JSON.stringify(curRank, null, 2)}`);
+
+    // assign prev pos 
+    //above
+    if (curRank.position < curPlayerScoresAndPositions[0].position &&
+        curRank.score > curPlayerScoresAndPositions[0].score) {
+        return curPlayerScoresAndPositions[0];
+    }
+
+
+    //below
+    if (curRank.position > curPlayerScoresAndPositions[curPlayerScoresAndPositions.length - 1].position &&
+        curRank.score < curPlayerScoresAndPositions[curPlayerScoresAndPositions.length - 1].score) {
+        return curPlayerScoresAndPositions[curPlayerScoresAndPositions.length - 1];
+    }
+
+    //between/same
+    return curRank;
+}
+
 function assignScoreColor(prevRank, curRank) {
 
-    console.log('curRank: ' + curRank);
-    console.log('prevRank: ' + prevRank);
+    console.log('curRank: ' + JSON.stringify(curRank));
+    console.log('prevRank: ' + JSON.stringify(prevRank));
 
-    if (curRank < prevRank) {
+    if (curRank.position < prevRank.position) {
         showsArrow = true;
         return 'green';
     }
-    if (curRank > prevRank) {
+    if (curRank.position > prevRank.position) {
         showsArrow = true;
         return 'red';
     }
@@ -132,39 +163,26 @@ function assignScoreColor(prevRank, curRank) {
     return 'purple';
 }
 
-function assignPrevRank(curPlayerScoresAndPositions) {
+function getRankLabel() {
 
-    console.log(`old scores and pos: ${JSON.stringify(curPlayerScoresAndPositions, null, 2)}`);
-
-    // assign prev pos 
-    //above
-    if (curRank < curPlayerScoresAndPositions[0].position)
-        return curPlayerScoresAndPositions[0].position;
-
-    //below
-    if (curRank > curPlayerScoresAndPositions[curPlayerScoresAndPositions.length - 1].position)
-        return curPlayerScoresAndPositions[curPlayerScoresAndPositions.length - 1].position;
-
-    //same/between
-    return curRank;
-}
-
-function getRankLabel(curRank) {
-
-    return prevRank - curRank;
+    return prevRank.position - curRank.position;
 }
 
 // TODO: remove static data below
 let prevRank = -1; // can be null
 let curRank = -1;
-let activePlayerName = 'Trevor';
+let activePlayerName = 'Morgan';
 let activePlayerMoves = 12;
 let activePlayerTime = 33;
-let activePlayerScore = 10600;
+let activePlayerScore = 15000;
 let scoreColor = 'red';
 let showsArrow = false;
+let curPlayerScores = null;
 
 async function populateLeaderboard() {
+
+    // ** get grid from session
+    // ** get username from session
 
     // get old top 100 scores for grid
     let responseBody = await getAllGridScores(1);
@@ -193,7 +211,7 @@ async function populateLeaderboard() {
 
     // ---------------------
     // get old current player POSITIONS from top 100 as array.
-    let curPlayerScores = getCurPlayerPositionsAndScores(leaderboardData.data, activePlayerName);
+    curPlayerScores = getCurPlayerPositionsAndScores(leaderboardData.data, activePlayerName);
 
     // logic for assigning old POS
     prevRank = assignPrevRank(curPlayerScores);
@@ -219,7 +237,8 @@ async function populateLeaderboard() {
             let leaderColumn = document.createElement('td');
 
             // cur player normal row
-            if (leader.username === activePlayerName && leader.score === activePlayerScore) {
+            // if (leader.username === activePlayerName && leader.score === activePlayerScore) {
+            if (leader.curPlayerData) {
                 leaderRow.setAttribute('class', 'activeFontColor');
             } else {
                 if (passedHighest) {
@@ -231,7 +250,8 @@ async function populateLeaderboard() {
 
             // cur player score row
             if (tableProperty === 'rank') {
-                if (leader.username === activePlayerName && leader.score === activePlayerScore) {
+                //    if (leader.username === activePlayerName && leader.score === activePlayerScore) {
+                if (leader.curPlayerData) {
                     // create table with arrow add to column
                     let scoreCol = document.createElement('td');
                     scoreCol.innerHTML = ` ${index + 1} `;
@@ -248,7 +268,7 @@ async function populateLeaderboard() {
 
                     let arrowCol = document.createElement('td');
 
-                    arrowCol.innerHTML = `${getRankLabel(index + 1)} `;
+                    arrowCol.innerHTML = `${getRankLabel()} `;
                     arrowCol.appendChild(arrow);
 
                     leaderRow.style.color = scoreColor;
@@ -268,7 +288,8 @@ async function populateLeaderboard() {
             }
 
             // cur player header and footer
-            if (leader.username === activePlayerName && leader.score === activePlayerScore) {
+            if (leader.curPlayerData) {
+                // if (leader.username === activePlayerName && leader.score === activePlayerScore) {
                 let tableFoot = document.getElementById('activePlayerResults-footer');
                 let tableHead = document.getElementById('activePlayerResults-header');
 
@@ -288,8 +309,6 @@ async function populateLeaderboard() {
                     footerData.setAttribute('class', 'hideColumn');
                     headerData.setAttribute('class', 'hideColumn');
                 }
-                footerData.style.color = scoreColor;
-                headerData.style.color = scoreColor;
                 tableFoot.appendChild(footerData);
                 tableHead.appendChild(headerData);
             }
@@ -298,7 +317,8 @@ async function populateLeaderboard() {
                 leaderColumn.setAttribute('class', 'hideColumn');
             }
 
-            if (leader.username === activePlayerName && leader.score === activePlayerScore) {
+            //  if (leader.username === activePlayerName && leader.score === activePlayerScore) {
+            if (leader.curPlayerData) {
                 passedHighest = true;
             }
 
@@ -308,6 +328,13 @@ async function populateLeaderboard() {
         tableBody.appendChild(leaderRow);
 
     });
+
+    // write new score if top 100
+    if (curRank !== -1) {
+        // (gridID, username, time, moves, score) 
+        let updateInfo = await updateScores(1, activePlayerName, activePlayerTime, activePlayerMoves, activePlayerScore);
+        console.log(updateInfo);
+    }
 
 }
 
