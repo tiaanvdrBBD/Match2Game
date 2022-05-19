@@ -58,7 +58,7 @@ function tick() {
       showGameOver();
       document.getElementById("heading").innerHTML = `Oops!`;
       document.getElementById("gameOverMessage").innerHTML = `You were caught...`;
-      document.getElementById("moves").innerHTML = `Moves: ${successful + unsuccessful}`;
+      document.getElementById("moves").innerHTML = `Moves: ${moves}`;
       document.getElementById("time").innerHTML = `Time: ${minutes + "m " + seconds + "s"}`;
       document.getElementById("gameOverImg").src = `../img/unsuccess.svg`;
     }
@@ -78,10 +78,12 @@ function flipCard() {
     }
   }
 
-  moves++;
-  document.getElementById("movesLabel").innerHTML = "Moves: " + moves;
+
 
   if (this === firstCard) return;
+
+  moves++;
+  document.getElementById("movesLabel").innerHTML = "Moves: " + moves;
 
   this.classList.add('flip');
 
@@ -107,27 +109,15 @@ function flipCard() {
     document.getElementById("heading").innerHTML = `Congratulations!`;
     document.getElementById("gameOverMessage").innerHTML = `You made it out the fish pond.`;
     document.getElementById("score").innerHTML = `${evaluation()} - ${sessionStorage.getItem('username')} `;
-    document.getElementById("moves").innerHTML = `Moves: ${successful + unsuccessful}`;
+    document.getElementById("moves").innerHTML = `Moves: ${moves}`;
     document.getElementById("time").innerHTML = `Time: ${minutes + "m " + seconds + "s"}`;
     document.getElementById("gameOverImg").src = `../img/success.svg`;    // reset everything
-
-    hasFlippedCard = false;
-    lockBoard = false;
-    firstCard, secondCard;
-    gameStart = 0;
-    gameDone = 0; //sit next to line gameStart
-    maxTime = 5;
-    timeTaken = 0;
-    successful = 0;
-    unsuccessful = 0;
-    xAxis = 0;
-    yAxis = 0;
-    timerID = -1;
+    reset();
   } else if (gameDone == 2) {
     showGameOver();
     document.getElementById("heading").innerHTML = `Oops!`;
     document.getElementById("gameOverMessage").innerHTML = `You were caught...`;
-    document.getElementById("moves").innerHTML = `Moves: ${successful + unsuccessful}`;
+    document.getElementById("moves").innerHTML = `Moves: ${moves}`;
     document.getElementById("time").innerHTML = `Time: ${minutes + "m " + seconds + "s"}`;
     document.getElementById("gameOverImg").src = `../img/unsuccess.svg`;
   } else {
@@ -275,7 +265,7 @@ function reset() {
   lockBoard = false;
   firstCard, secondCard;
   gameStart = 0;
-  gameDone = 0; //sit next to line gameStart
+  gameDone = 0;
   maxTime = 5;
   timeTaken = 0;
   successful = 0;
@@ -283,4 +273,5 @@ function reset() {
   xAxis = 0;
   yAxis = 0;
   moves = 0;
+  timerID = -1;
 }

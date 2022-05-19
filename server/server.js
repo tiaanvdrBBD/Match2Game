@@ -90,6 +90,17 @@ async function handleRequest(calculations, queryString, headerString, response) 
 };
 
 // --- ENDPOINTS ---
+app.post('/api/score/add', async (request, response) => {
+
+    handleRequest(null, `insert into Score (username, time_, moves, score, gridID) values 
+       ('${request.query.username}', 
+        ${request.query.time}, 
+        ${request.query.moves}, 
+        ${request.query.score}, 
+        ${request.query.gridID});`, `POST/api/scores`, response);
+
+});
+
 
 app.get('/api/scores', async (request, response) => {
 
