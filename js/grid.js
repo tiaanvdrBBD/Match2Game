@@ -4,7 +4,10 @@ let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
 let gameStart = 0;
-let gameDone = 0; //sit next to line gameStart
+// 0 - Game not over
+// 1 - Game won
+// 2 - No time left
+let gameDone = 0;
 let moves = 0;
 let maxTime = 5;
 let timeTaken = 0;
@@ -12,13 +15,12 @@ let successful = 0;
 let unsuccessful = 0;
 let xAxis = 0;
 let yAxis = 0;
-let pause = false;  //0 meaning it's not paused
+let pause = false;
 let timeLeft = 0;
 let multiplier = 0;
-
-// added
 let timerID = -1;
-
+let minutes;
+let seconds;
 
 function showGrid() {
   populateGrid(sessionStorage.getItem("gridX"), sessionStorage.getItem("gridY"));
@@ -41,8 +43,8 @@ function tick() {
     
     timeLeft = timeLeft - 1000;
 
-    let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+    minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
     let m = minutes > 0 ? (minutes < 10 ? "0" : "") + minutes + ":" : "00:";
     let s = seconds > 0 ? (seconds < 10 ? "0" : "") + seconds : "00";
@@ -53,18 +55,20 @@ function tick() {
     let secondsLeft = 60 - seconds;
     timeTaken = minutesLeft * 60 + secondsLeft;
     // time up
-    if (timeLeft < 0) {
+    if (timeLeft <= 0) {
       clearInterval(timerID);
-      gameDone = 1;
-      //display timer
-      document.getElementById("timerLabel").innerHTML = "EXPIRED, number of moves: " + (moves).toString();
+      console.log("Time's up!");
+      gameDone = 2;
+      showGameOver();
+      document.getElementById("heading").innerHTML = `Oops!`;
+      document.getElementById("gameOverMessage").innerHTML = `You were caught...`;
+      document.getElementById("moves").innerHTML = `Moves: ${successful + unsuccessful}`;
+      document.getElementById("time").innerHTML = `Time: ${minutes + "m " + seconds + "s"}`;
+      document.getElementById("gameOverImg").src = `../img/unsuccess.svg`;
     }
-
   }
-
 }
 
-// function called when card clicked (shows picture)
 function flipCard() {
   if (lockBoard) return;
   if (pause) return;
@@ -102,12 +106,15 @@ function flipCard() {
     timerID = setInterval(tick, 1000);
   }
   if (gameDone == 1) {
-    //stop running the interval
     clearInterval(timerID);
-    // display score
-    document.getElementById("timerLabel").innerHTML = `Complete! Score: ${evaluation()}
-    Moves: ${successful + unsuccessful}`;
-    // reset everything
+    showGameOver();
+    document.getElementById("heading").innerHTML = `Congratulations!`;
+    document.getElementById("gameOverMessage").innerHTML = `You made it out the fish pond.`;
+    document.getElementById("score").innerHTML = `${evaluation()} - ${sessionStorage.getItem('username')} `;
+    document.getElementById("moves").innerHTML = `Moves: ${successful + unsuccessful}`;
+    document.getElementById("time").innerHTML = `Time: ${minutes + "m " + seconds + "s"}`;
+    document.getElementById("gameOverImg").src = `../img/success.svg`;    // reset everything
+    
     hasFlippedCard = false;
     lockBoard = false;
     firstCard, secondCard;
@@ -120,16 +127,22 @@ function flipCard() {
     xAxis = 0;
     yAxis = 0;
     timerID = -1;
+  } else if (gameDone == 2) {
+    showGameOver();
+    document.getElementById("heading").innerHTML = `Oops!`;
+    document.getElementById("gameOverMessage").innerHTML = `You were caught...`;
+    document.getElementById("moves").innerHTML = `Moves: ${successful + unsuccessful}`;
+    document.getElementById("time").innerHTML = `Time: ${minutes + "m " + seconds + "s"}`;
+    document.getElementById("gameOverImg").src = `../img/unsuccess.svg`;
+  } else {
+    hideGameOver();
+    console.log("Hide");
   }
-
 };
 
 function resetTimer(timerString) {
-
-  // set timer text
   document.getElementById("timerLabel").innerHTML = timerString;
   document.getElementById("movesLabel").innerHTML = "Moves: 0";
-  //stop running the interval
   if (timerID !== -1) {
     clearInterval(timerID);
     timerID = -1;
@@ -139,7 +152,6 @@ function resetTimer(timerString) {
 
 function checkForMatch() {
   let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
-
   if (isMatch) {
     successful++;
     disableCards();
@@ -151,7 +163,6 @@ function checkForMatch() {
     unflipCards();
   }
   let perfectGame = xAxis * yAxis;
-  // If you've made each successfull move, you must've finished
   if (successful == perfectGame / 2) {
     gameDone = 1;
   }
@@ -168,7 +179,6 @@ function disableCards() {
 // hide picture
 function unflipCards() {
   lockBoard = true;
-
   setTimeout(() => {
     firstCard.classList.remove('flip');
     secondCard.classList.remove('flip');
@@ -220,8 +230,6 @@ function playpause() {
   }
 }
 
-
-
 function populateGrid(gridSizeX, gridSizeY) {
   resetTimer('05:00');
   xAxis = gridSizeX;
@@ -265,6 +273,7 @@ function populateGrid(gridSizeX, gridSizeY) {
 window.addEventListener('load', (event) => {
   document.getElementById("appNavbar").innerHTML =  navbar() ;
 });
+
 function reset() {
   hasFlippedCard = false;
   lockBoard = false;

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,6 +15,7 @@
     <script src="../js/leaderboard.js" async></script>
     <script src="../js/navbar.js"></script>
 </head>
+
 <body onload="populateLeaderboard()">
     <nav id="appNavbar"></nav>
     <section class="pageContent">
@@ -25,13 +27,13 @@
                 <th class="hideColumn">Moves</th>
                 <th class="hideColumn">Time</th>
                 <th class="hideColumn">Points</th>
+                <tr id="activePlayerResults-header"></tr>
             </thead>
             <tbody id="leaderBoardResults">
             </tbody>
             <tfoot>
-                <tr id="activePlayerResults">
-                </tr>
-              </tfoot>
+                <tr id="activePlayerResults-footer"></tr>
+            </tfoot>
         </table>
 
 
@@ -54,6 +56,7 @@
     <div><span class="dot"></span></div>
     <div><span class="dot"></span></div>
 
-    
+
 </body>
+
 </html>

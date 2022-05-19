@@ -3,13 +3,13 @@ const cors = require('cors');
 const util = require('util');
 const app = express(); // instantiate Express
 app.use(cors({
-    origin: '*'
+    origin: '*',
 }));
 app.use(express.json({ // protects against large requests
     limit: '1mb'
 }));
 
-const port = 3000; // set up our port
+const port = 80; // set up our port
 app.listen(port, () => console.log(`Server started on ${port}...`)); // start server
 
 const mysql = require('mysql');
@@ -90,24 +90,25 @@ async function handleRequest(calculations, queryString, headerString, response) 
 };
 
 // --- ENDPOINTS ---
-app.post('/api/scores', async (request, response) => {
+
+app.get('/api/scores', async (request, response) => {
 
     // custom logic needed to sort
     function calcs(curObj) {
         if (curObj.success) {
-            // sort ascending
+            // sort descending
             let data_sorted = curObj.data.sort((a, b) => {
                 // compare logic
-                if (a.score < b.score) return -1;
-                if (a.score > b.score) return 1;
+                if (a.score > b.score) return -1;
+                if (a.score < b.score) return 1;
                 return 0;
             });
-            curObj.data = data_sorted;
+            curObj.data = data_sorted.slice(0, 100);
             return curObj;
         }
     }
 
-    handleRequest(calcs, `select * from Score where gridID=${request.query.gridID}`, `POST/api/scores`, response);
+    handleRequest(calcs, `select * from Score where gridID=${request.query.gridID}`, `GET/api/scores`, response);
 });
 
 app.post('/api/usernames', async (request, response) => {
