@@ -3,7 +3,7 @@
     padding-right: 4em;
     width: 80vw;
     gap: 1em;
-    height: 80vh;
+    height: 70vh;
 }
 
 .activeFontColor {
@@ -12,7 +12,7 @@
 
 tbody {
     display: block;
-    height: 70vh;
+    height: 60vh;
     overflow-x: hidden;
     overflow-y: auto;
     padding-right: 2em;
