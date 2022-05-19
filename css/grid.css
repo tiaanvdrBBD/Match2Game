@@ -147,6 +147,11 @@
 }
 
 
+#gameOver{
+    display: none; 
+}
+
+
   /** Media Queries **/
   @media (max-width: 1000px)  { 
     .grid4{
